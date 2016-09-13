@@ -1,4 +1,4 @@
-package Frame;
+package Temp;
 
 import java.awt.Dimension;
 
@@ -22,6 +22,7 @@ public class CalendarApp extends JFrame {
 	
     public static final int FRAME_WIDTH 		= 700;
     public static final int FRAME_HEIGHT 		= 700;
+    
 	
     public static CalendarApp app;
     
