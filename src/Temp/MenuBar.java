@@ -40,6 +40,8 @@ public class MenuBar extends JPanel{
 	private int Month 	= 0;
 	private int Day 	= 0;
 	
+	private JButton applyDate;
+	
 	public MenuBar(CalendarApp calendarApp){
 		this.calendarApp = calendarApp;
 		
@@ -56,16 +58,18 @@ public class MenuBar extends JPanel{
 	
 	}
 	private void initUpdate(){
-		JButton applyDate = new JButton("Apply");
+		applyDate = new JButton("Apply");
 		
 		applyDate.addActionListener(new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
 		    	SaveNonVol();
 		    	calendarApp.updateCurrentView();
+		    	applyDate.setEnabled(false);
 		    	
 		    }
 		});
 		setupButton(applyDate);
+		applyDate.setEnabled(false);
 		add(applyDate);
 	}
 	private void initFormatButtons(){
@@ -154,6 +158,7 @@ public class MenuBar extends JPanel{
 		dayList.addActionListener(new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
 		    	storeDay();
+		    	applyDate.setEnabled(true);
 		    }
 		});
 		
@@ -174,6 +179,7 @@ public class MenuBar extends JPanel{
 		    	if( Month == 1 ){
 		    		resetDayBox();
 		    	}
+		    	applyDate.setEnabled(true);
 		    	
 		    	
 		    }
