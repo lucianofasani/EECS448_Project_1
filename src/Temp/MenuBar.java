@@ -191,7 +191,7 @@ private void initMonthBox(){
 	private void storeYear(){
 		this.Year = yearList.getSelectedIndex()+YEAR_OFFSET;
 		System.out.println("Year "+this.Year);
-	}s
+	}
 	private void SaveNonVol(){
 		CachedCalendar.getInstance().Year = this.Year;
 		CachedCalendar.getInstance().DayOfMonth = this.Day;
