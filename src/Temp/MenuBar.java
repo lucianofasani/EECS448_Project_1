@@ -19,7 +19,7 @@ import constants.ViewTypes;
 public class MenuBar extends JPanel{
 
 	private static final int BUTTON_HEIGHT 	= 25;
-	private static final int BUTTON_WIDTH 	= 70;
+	private static final int BUTTON_WIDTH 	= 80;
 	
 	private static final int YEAR_OFFSET = 2016;
 	
@@ -56,7 +56,7 @@ public class MenuBar extends JPanel{
 	
 	}
 	private void initUpdate(){
-		JButton applyDate = new JButton("Apply Date");
+		JButton applyDate = new JButton("Apply");
 		
 		applyDate.addActionListener(new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -65,6 +65,7 @@ public class MenuBar extends JPanel{
 		    	
 		    }
 		});
+		setupButton(applyDate);
 		add(applyDate);
 	}
 	private void initFormatButtons(){
@@ -106,7 +107,7 @@ public class MenuBar extends JPanel{
 		add(week);
 		add(day);
 		
-		Component spacer = Box.createRigidArea(new Dimension(BUTTON_WIDTH,0));
+		Component spacer = Box.createRigidArea(new Dimension(BUTTON_WIDTH/2,0));
 		add(spacer);
 	}
 	
