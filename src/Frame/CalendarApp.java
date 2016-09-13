@@ -3,7 +3,15 @@ package Frame;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+
+import DayView.DayView;
+import MonthView.MonthView;
+import Views.Views;
+import WeekView.WeekView;
+import YearView.YearView;
+import constants.ViewTypes;
 
 public class CalendarApp extends JFrame {
 	
@@ -16,6 +24,10 @@ public class CalendarApp extends JFrame {
     public static final int FRAME_HEIGHT 		= 700;
 	
     public static CalendarApp app;
+    
+    private JComponent activePanel;
+	private Views activeView;
+	private ViewTypes activeViewType;
 	
     private CalendarApp(){
 		initFrame();
@@ -36,7 +48,53 @@ public class CalendarApp extends JFrame {
 		validate();
 		setVisible(true);
 	}
+    public void updateCurrentView(){
+		activeView.update();
+	}
+    
+	public void setActiveView(ViewTypes view)
+	{
+		/*
+		 * User pressed the current button, no change.
+		 */
+		if(view == activeViewType){
+			return;
+		}
+		
+		invalidate();
+		remove(activePanel);
+		switch(view)
+		{
+			case YEAR:
+				activePanel = YearView.getInstance();
+				activeView = YearView.getInstance();
+				break;
+			case MONTH:
+				activePanel = MonthView.getInstance();
+				activeView = MonthView.getInstance();
+				break;
+			case WEEK:
+				activePanel = WeekView.getInstance();
+				activeView = WeekView.getInstance();
+				break;
+			case DAY:
+				activePanel = DayView.getInstance();
+				activeView = DayView.getInstance();
+				break;
+			default:
+				// No change
+				System.err.println("Invalid ViewType, this shouldn't be possible to see...");
+				break;
+			
+		}
+		activeViewType = view;
+		add(activePanel);
+
 	
+		activeView.update();
+		validate();
+		repaint();
+	}
 	
     public static void main(String[] args){
 		app = new CalendarApp();
