@@ -12,7 +12,7 @@ public class WeekView extends JPanel implements Views {
 	 */
 	private static final long serialVersionUID 	= 7422166790444563256L;
 	
-	private static MonthView sInstance 			= null;
+	private static WeekView sInstance 			= null;
 	private WeekViewGrid current  				= null;
 
 	private WeekView(){
@@ -20,7 +20,7 @@ public class WeekView extends JPanel implements Views {
 
 		current = new WeekViewGrid();
 		
-		add( new ViewMenuBar() );
+		add( new WeekViewMenuBar() );
 		add( current );
 		
 	}
@@ -30,7 +30,7 @@ public class WeekView extends JPanel implements Views {
 	 */
 	public static WeekView getInstance(){
 		if(sInstance == null){
-			sInstance = new MonthView();
+			sInstance = new WeekView();
 		}
 		return sInstance;
 	}
