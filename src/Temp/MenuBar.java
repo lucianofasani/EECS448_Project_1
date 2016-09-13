@@ -196,7 +196,7 @@ public class MenuBar extends JPanel{
 		CachedCalendar.getInstance().Year = this.Year;
 		CachedCalendar.getInstance().DayOfMonth = this.Day;
 		CachedCalendar.getInstance().Month = this.Month;
-		
+		CachedCalendar.getInstance().saveToFile();
 	}
 	
 	private void resetDayBox(){
