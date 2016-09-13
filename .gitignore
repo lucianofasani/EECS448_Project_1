@@ -1,3 +1,14 @@
+# Data files
+*.txt
+
+# Eclipse Crap
+.metadata/
+.classpath
+.project
+.recommenders/
+*.settings/
+
+
 *.class
 
 # Mobile Tools for Java (J2ME)
