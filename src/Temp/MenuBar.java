@@ -60,9 +60,8 @@ public class MenuBar extends JPanel{
 		
 		applyDate.addActionListener(new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		    	//SaveNonVol();
+		    	SaveNonVol();
 		    	calendarApp.updateCurrentView();
-		    	System.out.println("Update");
 		    	
 		    }
 		});
@@ -192,6 +191,12 @@ private void initMonthBox(){
 	private void storeYear(){
 		this.Year = yearList.getSelectedIndex()+YEAR_OFFSET;
 		System.out.println("Year "+this.Year);
+	}s
+	private void SaveNonVol(){
+		CachedCalendar.getInstance().Year = this.Year;
+		CachedCalendar.getInstance().DayOfMonth = this.Day;
+		CachedCalendar.getInstance().Month = this.Month;
+		
 	}
 	
 	private void resetDayBox(){
