@@ -22,6 +22,8 @@ public class CalendarApp extends JFrame {
 	
     public static final int FRAME_WIDTH 		= 700;
     public static final int FRAME_HEIGHT 		= 700;
+	public static final int DAY_OF_MONTH_WIDTH 	= 100;
+	public static final int DAY_OF_MONTH_HEIGHT = 100;
     
 	
     public static CalendarApp app;
@@ -32,6 +34,13 @@ public class CalendarApp extends JFrame {
 	
     private CalendarApp(){
 		initFrame();
+		
+		add(new MenuBar(this));
+		activePanel = MonthView.getInstance();
+		activeView = MonthView.getInstance();
+		activeViewType = ViewTypes.MONTH;
+		add(activePanel);
+		
 		display();
 	}
 	
