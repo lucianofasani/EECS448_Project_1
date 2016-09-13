@@ -5,7 +5,7 @@ import java.util.Date;
 
 import javax.swing.JFrame;
 
-import Temp.Entry;
+import Temp.CalendarApp;
 
 public class EventPlanner extends JFrame {
 	
@@ -19,7 +19,7 @@ public class EventPlanner extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setMinimumSize(new Dimension(200,200));
 		setResizable(false);
-		setLocationRelativeTo(Entry.app);
+		setLocationRelativeTo(CalendarApp.app);
 		setVisible(true);
 		
 	}
