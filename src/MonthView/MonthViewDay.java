@@ -6,10 +6,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Days.IDay;
+import Records.CachedCalendar;
 
 
 
-public class MonthViewDay extends JPanel{
+
+public class MonthViewDay extends JPanel implements IDay{
 
 	/**
 	 * 
@@ -35,9 +38,21 @@ public class MonthViewDay extends JPanel{
 		add(label);
 	}
 	
+	@Override
 	public int getDay(){
 		return day;
 	}
+
+	@Override
+	public int getMonth() {
+		return CachedCalendar.getInstance().Month;
+	}
+
+	@Override
+	public int getYear() {
+		return CachedCalendar.getInstance().Year;
+	}
+
 
 
 }

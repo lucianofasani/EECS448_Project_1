@@ -13,7 +13,6 @@ import java.util.Calendar;
 import javax.swing.JPanel;
 
 import Listeners.DatePicker;
-import MonthView.MonthViewDay;
 import Records.CachedCalendar;
 import Temp.CalendarApp;
 
@@ -57,12 +56,29 @@ public class WeekViewGrid extends JPanel {
 		 * Draw the days
 		 */
 		int dayName = mycal.get(Calendar.DAY_OF_WEEK);
-                int day = mycal.get(Calendar.DAY_OF_MONTH);
-                int start = (day - dayName)+1;
-		MonthViewDay temp = null;
-		int plottedDays = 0;
-		for(int i = start; i<start+7; i++, plottedDays++){
-			temp = new MonthViewDay((i),new Dimension(50,100));
+        int day = mycal.get(Calendar.DAY_OF_MONTH);
+        int start = (day - dayName)+1;
+		WeekViewDay temp = null;
+		
+	
+		int plottedCount = 0;
+		while(start<=0){
+			temp = new WeekViewDay(start, CachedCalendar.getInstance().Month-1,null,new Dimension(50,100));
+			temp.setBackground(Color.GRAY);
+			temp.addMouseListener(mouseListener);
+			add(temp);
+			start++;
+			plottedCount++;
+		}
+		
+		for(; plottedCount<7 && start <= mycal.getActualMaximum(Calendar.DAY_OF_MONTH); start++,plottedCount++){
+			temp = new WeekViewDay(start,null,null,new Dimension(50,100));
+			temp.setBackground(Color.GRAY);
+			temp.addMouseListener(mouseListener);
+			add(temp);
+		}
+		for(int i = 1;plottedCount<7;plottedCount++,i++){
+			temp = new WeekViewDay(i,CachedCalendar.getInstance().Month+1,null,new Dimension(50,100));
 			temp.setBackground(Color.GRAY);
 			temp.addMouseListener(mouseListener);
 			add(temp);
