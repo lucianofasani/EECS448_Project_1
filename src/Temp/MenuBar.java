@@ -197,12 +197,13 @@ public class MenuBar extends JPanel{
 	private void storeYear(){
 		this.Year = yearList.getSelectedIndex()+YEAR_OFFSET;
 		System.out.println("Year "+this.Year);
+		storeDay();
 	}
 	private void SaveNonVol(){
 		CachedCalendar.getInstance().Year = this.Year;
 		CachedCalendar.getInstance().DayOfMonth = this.Day;
 		CachedCalendar.getInstance().Month = this.Month;
-		
+		CachedCalendar.getInstance().saveToFile();
 	}
 	
 	private void resetDayBox(){

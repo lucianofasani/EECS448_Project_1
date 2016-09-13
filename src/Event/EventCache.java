@@ -1,18 +1,28 @@
 package Event;
 
+import java.io.FileNotFoundException;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import FileOperations.FileIO;
 
 
 
 
 public class EventCache {
 
+	private static final String EVENT_FILE = "Events.txt";
 
 	JSONArray events;
 	private static EventCache sInstance = null;
 	private EventCache(){
-		events = new JSONArray();
+		try{
+			events = FileIO.readToArray(EVENT_FILE);
+		}catch(FileNotFoundException e){
+			events = new JSONArray();
+		}
+		
 
 		
 	}
@@ -26,6 +36,7 @@ public class EventCache {
 	@SuppressWarnings("unchecked")
 	public void addEvent(JSONObject event){
 		events.add(event);
+		FileIO.writeToFile(EVENT_FILE, events);
 	}
 
 }
