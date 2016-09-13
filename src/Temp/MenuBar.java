@@ -115,7 +115,7 @@ public class MenuBar extends JPanel{
 		b.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 		b.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 	}
-private void initMonthBox(){
+        private void initMonthBox(){
 		
 		MonthsOfYear[] months = MonthsOfYear.values();
 		String[] names = new String[months.length];
@@ -170,8 +170,7 @@ private void initMonthBox(){
 		    	storeYear();
 		    	
 		    	//Stupid February and its day count
-		    	if(CachedCalendar.getInstance().Month==2)
-		    	{
+		    	if( Month == 1 ){
 		    		resetDayBox();
 		    	}
 		    	
