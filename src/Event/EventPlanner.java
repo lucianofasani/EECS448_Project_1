@@ -179,7 +179,7 @@ public class EventPlanner extends JFrame {
 			add(startTimeLabel);
 
 			startTime = new JComboBox<String>(time_strings);
-			startTime.setBounds(50,175,100,30);
+			startTime.setBounds(50,175,110,30);
 			add(startTime);
 
 			endTimeLabel = new JLabel("End Time:");
@@ -187,7 +187,7 @@ public class EventPlanner extends JFrame {
 			add(endTimeLabel);
 
 			endTime = new JComboBox<String>(time_strings);
-			endTime.setBounds(250,175,100,30);
+			endTime.setBounds(250,175,110,30);
 			add(endTime);
 			
 			allDay.setSelected(true);
