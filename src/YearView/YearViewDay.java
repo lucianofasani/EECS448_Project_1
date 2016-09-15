@@ -1,4 +1,4 @@
-package MonthView;
+package YearView;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -12,7 +12,7 @@ import Records.CachedCalendar;
 
 
 
-public class MonthViewDay extends JPanel implements IDay{
+public class YearViewDay extends JPanel implements IDay{
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class MonthViewDay extends JPanel implements IDay{
 
 	private Integer day;
 	
-	public MonthViewDay(Integer dayNum, Dimension d){
+	public YearViewDay(Integer dayNum, Dimension d){
 		day = dayNum;
 		setMinimumSize(d);
 		setMaximumSize(d);
@@ -31,10 +31,59 @@ public class MonthViewDay extends JPanel implements IDay{
 		JLabel label;
 		if(dayNum == null){
 			label = new JLabel("");
-		}else{
-			label = new JLabel(dayNum+"");
+		}else if (dayNum == 1)
+                {
+			label = new JLabel("January");
 		}
-		label.setForeground(Color.WHITE);
+                else if (dayNum == 2)
+                {
+			label = new JLabel("February");
+		}
+                else if (dayNum == 3)
+                {
+			label = new JLabel("March");
+		}
+                else if (dayNum == 4)
+                {
+			label = new JLabel("April");
+		}
+                else if (dayNum == 5)
+                {
+			label = new JLabel("May");
+		}
+                else if (dayNum == 6)
+                {
+			label = new JLabel("June");
+		}
+                else if (dayNum == 7)
+                {
+			label = new JLabel("July");
+		}
+                else if (dayNum == 8)
+                {
+			label = new JLabel("August");
+		}
+                else if (dayNum == 9)
+                {
+			label = new JLabel("September");
+		}
+                else if (dayNum == 10)
+                {
+			label = new JLabel("October");
+		}
+                else if (dayNum == 11)
+                {
+			label = new JLabel("November");
+		}
+                else if (dayNum == 12)
+                {
+			label = new JLabel("December");
+		}
+                else
+                {
+			label = new JLabel("");
+		}
+		label.setForeground(Color.black);
 		add(label);
 	}
 	
