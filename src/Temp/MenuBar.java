@@ -18,29 +18,31 @@ import constants.ViewTypes;
 
 public class MenuBar extends JPanel{
 
+	private static final long serialVersionUID = 341341509482431909L;
 	private static final int BUTTON_HEIGHT 	= 25;
 	private static final int BUTTON_WIDTH 	= 80;
-	
 	private static final int YEAR_OFFSET = 2016;
 	
-	/**
-	 * 
+	/*
+	 * JComponents that we need increased scope on.
 	 */
-	private static final long serialVersionUID = 341341509482431909L;
-	
 	private JComboBox<String> monthList 		= null;
 	private JComboBox<String> dayList			= null;
 	private JComboBox<String> yearList			= null;
+	private JButton applyDate 					= null;
+	
 	/**
 	 * Container this is set in.
 	 */
 	private CalendarApp calendarApp				= null;
-	
+	/*
+	 * Values being covered in comboboxes 
+	 */
 	private int Year 	= 0;
 	private int Month 	= 0;
 	private int Day 	= 0;
 	
-	private JButton applyDate;
+	
 	
 	public MenuBar(CalendarApp calendarApp){
 		this.calendarApp = calendarApp;
@@ -57,6 +59,9 @@ public class MenuBar extends JPanel{
 		initUpdate();
 	
 	}
+	/**
+	 * Initialize the update button
+	 */
 	private void initUpdate(){
 		applyDate = new JButton("Apply");
 		
@@ -72,6 +77,9 @@ public class MenuBar extends JPanel{
 		applyDate.setEnabled(false);
 		add(applyDate);
 	}
+	/**
+	 * Initialize the view buttons
+	 */
 	private void initFormatButtons(){
 		
 		JButton year = new JButton("Year");
@@ -114,13 +122,19 @@ public class MenuBar extends JPanel{
 		Component spacer = Box.createRigidArea(new Dimension(BUTTON_WIDTH/2,0));
 		add(spacer);
 	}
-	
+	/**
+	 * Initialize button sizes
+	 */
 	private void setupButton(JButton b){
 		b.setMinimumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 		b.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 		b.setMaximumSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 	}
-        private void initMonthBox(){
+	
+	/**
+	 * Initialize month JComboBox
+	 */
+    private void initMonthBox(){
 		
 		MonthsOfYear[] months = MonthsOfYear.values();
 		String[] names = new String[months.length];
@@ -140,7 +154,9 @@ public class MenuBar extends JPanel{
 		    
 		add(monthList);
 	}
-	
+	/**
+	 * Initialize day JComboBox
+	 */
 	private void initDayBox(){
 		
 		Calendar cal = Calendar.getInstance();
@@ -164,6 +180,9 @@ public class MenuBar extends JPanel{
 		
 		add(dayList);
 	}
+	/**
+	 * Initialize year JComboBox
+	 */
 	private void initYearBox(){
 		String[] years = {"2016","2017"};
 		
@@ -186,19 +205,32 @@ public class MenuBar extends JPanel{
 		});
 		add(yearList);
 	}
+	/**
+	 * Store month from ComboBox to member variable
+	 */
 	private void storeMonth(){
 		this.Month = monthList.getSelectedIndex();
 		System.out.println("Month "+this.Month);
 	}
+	/**
+	 * Store day from ComboBox to member variable
+	 */
 	private void storeDay(){
 		this.Day = dayList.getSelectedIndex()+1;
 		System.out.println("Day "+this.Day);
 	}
+	/**
+	 * Store year from ComboBox to member variable
+	 */
 	private void storeYear(){
 		this.Year = yearList.getSelectedIndex()+YEAR_OFFSET;
 		System.out.println("Year "+this.Year);
 		storeDay();
 	}
+	
+	/**
+	 * Save to our calendar instance and write the date to file
+	 */
 	private void SaveNonVol(){
 		CachedCalendar.getInstance().Year = this.Year;
 		CachedCalendar.getInstance().DayOfMonth = this.Day;
@@ -206,19 +238,28 @@ public class MenuBar extends JPanel{
 		CachedCalendar.getInstance().saveToFile();
 	}
 	
+	/**
+	 * Reinitialize day box with proper number of days.
+	 */
 	private void resetDayBox(){
+		int temp = dayList.getSelectedIndex()+1;
 		
 		dayList.removeAllItems();
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.MONTH, this.Month-1);
+		cal.set(Calendar.MONTH, this.Month);
 		cal.set(Calendar.YEAR, this.Year);
 		
 		int count = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		temp = (temp<=count)?temp:count;
+		temp--;
 		
 		for(int i = 1; i<=count; i++){
 
 			dayList.addItem(i+"");
 		}
+		dayList.setSelectedIndex(temp);
+		
 	}
 	
 

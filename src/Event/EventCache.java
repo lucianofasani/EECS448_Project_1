@@ -1,7 +1,6 @@
 package Event;
 
 import java.io.FileNotFoundException;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.json.simple.JSONArray;
