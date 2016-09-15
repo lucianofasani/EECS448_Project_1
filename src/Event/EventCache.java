@@ -1,6 +1,7 @@
 package Event;
 
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.json.simple.JSONArray;
@@ -60,6 +61,28 @@ public class EventCache {
 			
 		}
 		return dayEvents;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean removeEvent(Event e){
+		
+		JSONArray newArray = new JSONArray();
+		boolean retn = false;
+		
+		for(int idx = 0; idx<events.size(); idx++){
+			JSONObject jo = (JSONObject) events.get(idx);
+			long id = (long)jo.get(Event.ID_STRING);
+			
+			if(id != e.unique_id){
+				newArray.add(jo);
+	
+			}else{
+				retn = true;
+			}
+		}
+		events = newArray;
+		FileIO.writeToFile(EVENT_FILE, events);
+		return retn;
 	}
 
 }
