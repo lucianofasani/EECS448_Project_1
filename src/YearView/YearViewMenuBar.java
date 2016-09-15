@@ -1,4 +1,5 @@
-package MonthView;
+package YearView;
+import Records.CachedCalendar;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -9,16 +10,17 @@ import javax.swing.JPanel;
 
 import constants.DaysOfWeek;
 import Temp.CalendarApp;
+import java.util.Calendar;
 
 
-public class MonthViewMenuBar extends JPanel {
+public class YearViewMenuBar extends JPanel {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3252815883180101512L;
 
-	public MonthViewMenuBar(){
+	public YearViewMenuBar(){
 		/*
 		 * Configure panel
 		 */
@@ -31,8 +33,19 @@ public class MonthViewMenuBar extends JPanel {
 		/*
 		 * Add day of week Tiles
 		 */
-		for(int i = 0; i<DaysOfWeek.values().length; i++){
-			JLabel name = new JLabel(DaysOfWeek.values()[i].toString());
+//		for(int i = 0; i<DaysOfWeek.values().length; i++){
+                        Calendar mycal = Calendar.getInstance();
+                        int year = CachedCalendar.getInstance().Year;
+                        String year1 = "";
+                        if (year == 2016)
+                        {
+                            year1 = "2016";
+                        }
+                        if (year == 2017)
+                        {
+                            year1 = "2017";
+                        }
+			JLabel name = new JLabel(year1);
 			JPanel j = new JPanel();
 			j.setMinimumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setMaximumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
@@ -40,7 +53,7 @@ public class MonthViewMenuBar extends JPanel {
 			j.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			j.add(name);
 			add(j);
-		}
+//		}
 	}
 
 }

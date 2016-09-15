@@ -1,4 +1,4 @@
-package MonthView;
+package YearView;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,10 +10,12 @@ import javax.swing.JPanel;
 import Listeners.DatePicker;
 import Records.CachedCalendar;
 import Temp.CalendarApp;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 
 
 
-public class MonthViewGrid extends JPanel {
+public class YearViewGrid extends JPanel {
 	
 	
 	/**
@@ -23,7 +25,7 @@ public class MonthViewGrid extends JPanel {
 
 	private final DatePicker mouseListener;
 	
-	public MonthViewGrid(){
+	public YearViewGrid(){
 		/*
 		 * Configure Panel
 		 */
@@ -48,25 +50,29 @@ public class MonthViewGrid extends JPanel {
 		/*
 		 * Draw the days
 		 */
-		int day = mycal.get(Calendar.DAY_OF_WEEK);
+		//int day = mycal.get(Calendar.DAY_OF_WEEK);
 		int maxDaysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		MonthViewDay temp = null;
-		int plottedDays = 0;
-		for(int i =1 ;i<day; i++, plottedDays++){
-			temp = new MonthViewDay(null,new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
+		YearViewDay temp = null;
+		int plottedDays = 0;               
+		for(int i =1 ;i<13; i++, plottedDays++){
+			temp = new YearViewDay((i),new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
 			temp.setBackground(Color.white);
-			add(temp);
+                        //temp.addMouseListener(mouseListener);
+			add(temp);    
+                        
+                        
 		}
-		for(int i = 1; i<=maxDaysInMonth; i++, plottedDays++){
-			temp = new MonthViewDay((i),new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
-			temp.setBackground(Color.GRAY);
-			temp.addMouseListener(mouseListener);
-			add(temp);
-		}
-		for( ;plottedDays<7*6; plottedDays++){
-			temp = new MonthViewDay(null,new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
-			temp.setBackground(Color.white);
-			add(temp);
-		}	
+//		for(int i = 1; i<=4; i++, plottedDays++){
+//			temp = new YearViewDay((i),new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH/2,CalendarApp.DAY_OF_MONTH_HEIGHT/6));
+//			temp.setBackground(Color.GRAY);
+//			temp.addMouseListener(mouseListener);
+//			add(temp);
+//		}
+//		for( ;plottedDays<7*6; plottedDays++){
+//			temp = new YearViewDay(null,new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
+//			temp.setBackground(Color.blue);
+//			add(temp);
+//		}
+                    
 	}
 }
