@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -25,6 +26,7 @@ import org.json.simple.JSONObject;
 
 import Exceptions.InstanceOverflowException;
 import Exceptions.IrregularFormatException;
+import Listeners.Lock;
 import Styles.FontManager;
 import Temp.CalendarApp;
 
@@ -77,6 +79,7 @@ public class EventPlanner extends JFrame {
 	private JRadioButton allDay;
 	private JTextArea descriptionText;
 
+	
 	private static final int TEXT_BOX_LENGTH = 300;
 
 	private static final int DESCRIPTION_Y = 250;
@@ -96,8 +99,11 @@ public class EventPlanner extends JFrame {
 
 	private static  EventPlanner mInstance;
 	public static EventPlanner create(Date dateOn) throws InstanceOverflowException{
-
-		if(mInstance == null){
+		if(!Lock.getLock().tryAcquire())
+		{
+			throw new InstanceOverflowException();
+		}
+		if(mInstance == null ){
 			return mInstance = new EventPlanner(dateOn);
 		}
 		else{
@@ -125,6 +131,7 @@ public class EventPlanner extends JFrame {
 			public void windowClosing(WindowEvent e)
 			{
 				mInstance = null;
+				Lock.getLock().release();
 			}
 		});
 
@@ -253,17 +260,21 @@ public class EventPlanner extends JFrame {
 		JSONObject event;
 		try{
 			event = new JSONObject();
-			event.put("name", (String)nameText.getText());
-			event.put("date", mDate);
+			event.put(Event.NAME_STRING, (String)nameText.getText());
+			event.put(Event.DATE_STRING, mDate);
 			if(allDay.isSelected())
 			{
-				event.put("start", "-1");
-				event.put("end", "-1");
+				event.put(Event.START_STRING, "-1");
+				event.put(Event.STOP_STRING, "-1");
 			}else{
-				event.put("start", startTime.getSelectedItem().toString());
-				event.put("end", endTime.getSelectedItem().toString());
+				event.put(Event.START_STRING, startTime.getSelectedItem().toString());
+				event.put(Event.STOP_STRING, endTime.getSelectedItem().toString());
 			}
-			event.put("description", (String)descriptionText.getText());
+			event.put(Event.DESC_STRING, (String)descriptionText.getText());
+			
+			Random r = new Random(System.currentTimeMillis());
+			long id = r.nextLong();
+			event.put(Event.ID_STRING, id );
 		}catch(Exception e){
 			throw new IrregularFormatException();
 		}
@@ -271,6 +282,8 @@ public class EventPlanner extends JFrame {
 		EventCache.getInstance().addEvent(event);
 		JOptionPane.showMessageDialog(this, "Event Saved!","Event Planner",JOptionPane.INFORMATION_MESSAGE);
 		this.dispose();
+		Lock.getLock().release();
+		CalendarApp.app.updateCurrentView();
 	}
 	
 	private void toggleEnabled( boolean on ){
