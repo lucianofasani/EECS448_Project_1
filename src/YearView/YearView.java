@@ -14,13 +14,15 @@ public class YearView extends JPanel implements Views {
 	
 	private static YearView sInstance 			= null;
 	private YearViewGrid current  				= null;
+	private YearViewMenuBar currentBar 			= null;
 
 	private YearView(){
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS) );
 
 		current = new YearViewGrid();
 		
-		add( new YearViewMenuBar() );
+		currentBar = new YearViewMenuBar();
+		add( currentBar );
 		add( current );
 		
 	}
@@ -39,7 +41,10 @@ public class YearView extends JPanel implements Views {
 	@Override
 	public void update() {
 		remove(current);
+		remove(currentBar);
+		currentBar = new YearViewMenuBar();
 		current = new YearViewGrid();
+		add(currentBar);
 		add(current);
 		invalidate();
 		validate();
