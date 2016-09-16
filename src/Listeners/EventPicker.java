@@ -5,8 +5,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
 
-import DayView.DayViewEvent;
 import DayView.DayViewEventViewer;
+import DayView.IDayEvent;
 import Exceptions.InstanceOverflowException;
 
 public class EventPicker implements MouseListener {
@@ -14,7 +14,7 @@ public class EventPicker implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(arg0.getClickCount() == 2){
-			DayViewEvent e = (DayViewEvent)arg0.getSource();
+			IDayEvent e = (IDayEvent)arg0.getSource();
 
 			try {
 				DayViewEventViewer.create(e);

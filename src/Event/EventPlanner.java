@@ -26,6 +26,7 @@ import org.json.simple.JSONObject;
 
 import Exceptions.InstanceOverflowException;
 import Exceptions.IrregularFormatException;
+import Listeners.Lock;
 import Styles.FontManager;
 import Temp.CalendarApp;
 
@@ -98,8 +99,11 @@ public class EventPlanner extends JFrame {
 
 	private static  EventPlanner mInstance;
 	public static EventPlanner create(Date dateOn) throws InstanceOverflowException{
-
-		if(mInstance == null){
+		if(!Lock.getLock().tryAcquire())
+		{
+			throw new InstanceOverflowException();
+		}
+		if(mInstance == null ){
 			return mInstance = new EventPlanner(dateOn);
 		}
 		else{
@@ -127,6 +131,7 @@ public class EventPlanner extends JFrame {
 			public void windowClosing(WindowEvent e)
 			{
 				mInstance = null;
+				Lock.getLock().release();
 			}
 		});
 
@@ -277,6 +282,8 @@ public class EventPlanner extends JFrame {
 		EventCache.getInstance().addEvent(event);
 		JOptionPane.showMessageDialog(this, "Event Saved!","Event Planner",JOptionPane.INFORMATION_MESSAGE);
 		this.dispose();
+		Lock.getLock().release();
+		CalendarApp.app.updateCurrentView();
 	}
 	
 	private void toggleEnabled( boolean on ){

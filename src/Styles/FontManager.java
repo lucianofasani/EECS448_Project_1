@@ -14,7 +14,7 @@ public class FontManager {
 	public static Font getSmallFont(){
 		return mSmallFont;
 	}
-	public static Font geBoldFont(){
+	public static Font getBoldFont(){
 		return mBoldFont;
 	}
 

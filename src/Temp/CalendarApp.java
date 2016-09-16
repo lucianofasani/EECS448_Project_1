@@ -61,7 +61,10 @@ public class CalendarApp extends JFrame {
     public void updateCurrentView(){
 		activeView.update();
 	}
-    
+    /**
+     * Set the current view to the given view parameter and update the frame
+     * @param view
+     */
 	public void setActiveView(ViewTypes view)
 	{
 		/*

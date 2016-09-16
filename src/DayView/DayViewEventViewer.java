@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import Event.Event;
 import Event.EventCache;
 import Exceptions.InstanceOverflowException;
+import Listeners.Lock;
 import Styles.FontManager;
 import Temp.CalendarApp;
 
@@ -29,8 +30,12 @@ public class DayViewEventViewer extends JFrame{
 	private static final int FRAME_HEIGHT = 600;
 	private static final int FRAME_WIDTH = 400;
 	private static  DayViewEventViewer mInstance;
-	public static DayViewEventViewer create(DayViewEvent e) throws InstanceOverflowException{
+	public static DayViewEventViewer create(IDayEvent e) throws InstanceOverflowException{
 
+		if(!Lock.getLock().tryAcquire())
+		{
+			throw new InstanceOverflowException();
+		}
 		if(mInstance == null){
 			return mInstance = new DayViewEventViewer(e);
 		}
@@ -58,7 +63,7 @@ public class DayViewEventViewer extends JFrame{
 
 	private static final int NAME_Y = 45;
 	private static final int NAME_HEIGHT = 30;
-	private DayViewEventViewer(DayViewEvent e)
+	private DayViewEventViewer(IDayEvent e)
 	{
 		eventToShow = e.getEvent();
 		
@@ -67,6 +72,7 @@ public class DayViewEventViewer extends JFrame{
 			public void windowClosing(WindowEvent e)
 			{
 				mInstance = null;
+				Lock.getLock().release();
 			}
 		});
 		
@@ -122,7 +128,8 @@ public class DayViewEventViewer extends JFrame{
 				add(endTime);
 			}else{
 				allDay = new JLabel("All day Event");
-				allDay.setBounds(50,145,150,30);
+				allDay.setFont(FontManager.getBoldFont());
+				allDay.setBounds(140,110,150,30);
 				add(allDay);
 				
 			}
@@ -161,7 +168,7 @@ public class DayViewEventViewer extends JFrame{
 				public void actionPerformed(ActionEvent arg0) {
 					mInstance.dispose();
 					mInstance = null;
-					
+					Lock.getLock().release();
 				}
 			
 			});
@@ -175,6 +182,7 @@ public class DayViewEventViewer extends JFrame{
 				public void actionPerformed(ActionEvent arg0) {
 					mInstance.dispose();
 					mInstance = null;
+					Lock.getLock().release();
 					EventCache.getInstance().removeEvent(eventToShow);
 					CalendarApp.app.updateCurrentView();
 					

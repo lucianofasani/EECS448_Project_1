@@ -11,8 +11,9 @@ import javax.swing.border.Border;
 
 import Event.DateFormatter;
 import Event.Event;
+import Styles.FontManager;
 
-public class DayViewEvent extends JPanel{
+public class DayViewEvent extends JPanel implements IDayEvent{
 
 	/**
 	 * 
@@ -23,6 +24,7 @@ public class DayViewEvent extends JPanel{
 	private int year;
 	private final Event thisEvent;
 	public DayViewEvent(Event e){
+		this.setLayout(null);
 		thisEvent = e;
 		//this.setBackground(Color.BLACK);
 		Border doubleBorder = BorderFactory.createCompoundBorder(
@@ -47,9 +49,16 @@ public class DayViewEvent extends JPanel{
 		
 		JLabel name = new JLabel(e.Name);
 		name.setForeground(Color.BLACK);
+		name.setBounds(10, 5, 400, 30);
+		name.setFont(FontManager.getBoldFont());
 		add(name);
 		
-		this.setToolTipText(e.Description);
+		JLabel times = new JLabel(e.StartTime+" -> "+e.StopTime);
+		times.setForeground(Color.BLACK);
+		times.setBounds(30, 45, 400, 30);
+		times.setFont(FontManager.getBoldFont());
+		add(times);
+		
 
 	}
 
@@ -70,6 +79,7 @@ public class DayViewEvent extends JPanel{
 		return year;
 	}
 	
+	@Override
 	public Event getEvent(){
 		return thisEvent;
 	}

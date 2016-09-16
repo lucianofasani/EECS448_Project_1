@@ -18,7 +18,7 @@ public class DayViewGrid extends JPanel{
 	 */
 	private static final long serialVersionUID = -6262892174085562405L;
 
-	public DayViewGrid(JScrollPane pane, Date d, LinkedList<Event> todaysEvents){
+	public DayViewGrid(JScrollPane pane, Date d, LinkedList<Event> todaysEvents, EventPicker eventPicker){
 		int sizeOfEachGrid = 100;
 		int sizeOfList = todaysEvents.size();
 		setLayout(new GridLayout(sizeOfList>6?sizeOfList:6,1));
@@ -28,7 +28,7 @@ public class DayViewGrid extends JPanel{
 		//setBackground(Color.black);
 
 	
-		EventPicker eventPicker = new EventPicker();
+		
 		Iterator<Event> it = todaysEvents.iterator();
 	
 		while(it.hasNext()){

@@ -13,6 +13,7 @@ import java.util.LinkedList;
 
 import javax.swing.Box;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -23,6 +24,7 @@ import Event.DateFormatter;
 import Event.Event;
 import Event.EventCache;
 import Event.FormatTypes;
+import Listeners.EventPicker;
 import Records.CachedCalendar;
 import Temp.CalendarApp;
 
@@ -38,9 +40,11 @@ public class DayViewCollection extends JPanel{
 	private JScrollPane rightScrollPane;
 	private LinkedList<Event> todaysEvents;
 	private LinkedList<Event> allDayEvents;
+	private EventPicker eventPicker;
 	
 	public DayViewCollection(){
 		todaysEvents = new LinkedList<Event>();
+		eventPicker = new EventPicker();
 		setDate();
 		
 		dateString = DateFormatter.format(FormatTypes.Date, date);
@@ -60,6 +64,7 @@ public class DayViewCollection extends JPanel{
 		
 		spacer = Box.createRigidArea(new Dimension(CalendarApp.FRAME_WIDTH,50));
 		add(spacer, BorderLayout.PAGE_END);
+
 		
 	}
 	private void setDate(){
@@ -78,7 +83,7 @@ public class DayViewCollection extends JPanel{
 		setBackground(Color.GRAY);
 	}
 	private void addLeftBar(){
-		leftBar = new DayViewLeftPanel(date,dateString,allDayEvents);
+		leftBar = new DayViewLeftPanel(date,dateString,allDayEvents,eventPicker);
 		add(leftBar, BorderLayout.LINE_START);
 	}
 	private void addRightScrollBar(){
@@ -94,7 +99,7 @@ public class DayViewCollection extends JPanel{
 		im.put(KeyStroke.getKeyStroke("UP"), "negativeUnitIncrement");
 		
 
-		rightScrollPane.setViewportView(new DayViewGrid(rightScrollPane,date,todaysEvents));
+		rightScrollPane.setViewportView(new DayViewGrid(rightScrollPane,date,todaysEvents,eventPicker));
 		
 		add(rightScrollPane, BorderLayout.LINE_END);
 		
