@@ -57,7 +57,6 @@ public class YearViewGrid extends JPanel {
 		for(int i =1 ;i<13; i++, plottedDays++){
 			temp = new YearViewDay((i),new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
 			temp.setBackground(Color.white);
-                        //temp.addMouseListener(mouseListener);
 			add(temp);    
                         
                         
