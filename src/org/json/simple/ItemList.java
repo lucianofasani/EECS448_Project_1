@@ -14,8 +14,11 @@ import java.util.StringTokenizer;
  * |a:| => |a|,||
  * @author FangYidong<fangyidong@yahoo.com.cn>
  */
+
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ItemList {
 	private String sp=",";
+
 	List items=new ArrayList();
 	
 	
@@ -35,6 +38,7 @@ public class ItemList {
 		split(s,sp,items,isMultiToken);
 	}
 	
+	
 	public List getItems(){
 		return this.items;
 	}
@@ -43,6 +47,7 @@ public class ItemList {
 		return (String[])this.items.toArray();
 	}
 	
+
 	public void split(String s,String sp,List append,boolean isMultiToken){
 		if(s==null || sp==null)
 			return;

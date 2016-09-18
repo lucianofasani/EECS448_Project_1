@@ -1,5 +1,4 @@
 package YearView;
-import Records.CachedCalendar;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -8,9 +7,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import constants.DaysOfWeek;
+import Records.CachedCalendar;
 import Temp.CalendarApp;
-import java.util.Calendar;
 
 
 public class YearViewMenuBar extends JPanel {
@@ -30,11 +28,8 @@ public class YearViewMenuBar extends JPanel {
 		setLayout(new GridLayout(1,7));
 		setBackground(Color.ORANGE);
 		
-		/*
-		 * Add day of week Tiles
-		 */
-//		for(int i = 0; i<DaysOfWeek.values().length; i++){
-                        Calendar mycal = Calendar.getInstance();
+	
+                     
                         int year = CachedCalendar.getInstance().Year;
                         String year1 = "";
                         if (year == 2016)
@@ -53,7 +48,6 @@ public class YearViewMenuBar extends JPanel {
 			j.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			j.add(name);
 			add(j);
-//		}
 	}
 
 }

@@ -5,11 +5,9 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import Days.IDay;
 import Records.CachedCalendar;
-import java.util.Calendar;
 
 
 
@@ -32,7 +30,7 @@ public class YearViewDay extends JPanel implements IDay{
 		setPreferredSize(d);
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		JLabel label;
-                Calendar mycal = Calendar.getInstance();
+             
                 int year = CachedCalendar.getInstance().Year;
                 
 		if(dayNum == null){

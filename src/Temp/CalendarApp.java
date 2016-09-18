@@ -123,5 +123,6 @@ public class CalendarApp extends JFrame {
         EventQueue.invokeLater(() -> {
             app = new CalendarApp();
         });
+        
 	}
 }
