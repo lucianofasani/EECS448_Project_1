@@ -8,14 +8,15 @@ import javax.swing.JOptionPane;
 import DayView.DayViewEventViewer;
 import DayView.IDayEvent;
 import Exceptions.InstanceOverflowException;
-
+/**
+ * MouseListener for clicking a date to view an event
+ */
 public class EventPicker implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(arg0.getClickCount() == 2){
 			IDayEvent e = (IDayEvent)arg0.getSource();
-
 			try {
 				DayViewEventViewer.create(e);
 			} catch (InstanceOverflowException e1) {

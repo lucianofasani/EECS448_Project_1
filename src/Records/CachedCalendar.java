@@ -32,6 +32,7 @@ public class CachedCalendar {
 	
 	
 	private static final String DATE_FILE = "Date.txt";
+	
 	private CachedCalendar(){
 		try {
 			Date date = DateFormatter.getFormat().parse(FileIO.readDate(DATE_FILE));
@@ -48,16 +49,19 @@ public class CachedCalendar {
 			Year 		= cal.get(Calendar.YEAR);
 		}
 	}
-	/*
-	 * Singleton
+	
+	/**
+	 * Singleton instance
 	 */
 	public static CachedCalendar getInstance(){
 		if(sInstance == null){
 			sInstance = new CachedCalendar();
 		}
 		return sInstance;
-		
 	}
+	/**
+	 * Write out to the date file.
+	 */
 	public void saveToFile()
 	{
 		FileIO.writeToFile(DATE_FILE, Month+"-"+DayOfMonth+"-"+Year+"\n");

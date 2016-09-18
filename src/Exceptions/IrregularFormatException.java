@@ -1,5 +1,7 @@
 package Exceptions;
-
+/**
+ * Just a named Exception
+ */
 public class IrregularFormatException extends Exception{
 
 	/**

@@ -1,6 +1,7 @@
 package Temp;
 
 import java.awt.Dimension;
+import java.awt.EventQueue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -12,7 +13,11 @@ import Views.Views;
 import WeekView.WeekView;
 import YearView.YearView;
 import constants.ViewTypes;
-
+/**
+ * 
+ * Main entry point. The JFrame that everything is set in.
+ *
+ */
 public class CalendarApp extends JFrame {
 	
 	/**
@@ -25,7 +30,9 @@ public class CalendarApp extends JFrame {
 	public static final int DAY_OF_MONTH_WIDTH 	= 100;
 	public static final int DAY_OF_MONTH_HEIGHT = 100;
     
-	
+	/**
+	 * This Instance of CalendarApp 
+	 */
     public static CalendarApp app;
     
     private JComponent activePanel;
@@ -35,10 +42,11 @@ public class CalendarApp extends JFrame {
     private CalendarApp(){
 		initFrame();
 		
-		add(new MenuBar(this));
 		activePanel = MonthView.getInstance();
 		activeView = MonthView.getInstance();
 		activeViewType = ViewTypes.MONTH;
+		
+		add(new MenuBar(this));
 		add(activePanel);
 		
 		display();
@@ -58,15 +66,19 @@ public class CalendarApp extends JFrame {
 		validate();
 		setVisible(true);
 	}
+    
+    /**
+     * Refresh active view in the JFrame
+     */
     public void updateCurrentView(){
 		activeView.update();
 	}
+    
     /**
      * Set the current view to the given view parameter and update the frame
-     * @param view
+     * @param View to change to
      */
-	public void setActiveView(ViewTypes view)
-	{
+	public void setActiveView(ViewTypes view){
 		/*
 		 * User pressed the current button, no change.
 		 */
@@ -95,8 +107,6 @@ public class CalendarApp extends JFrame {
 				activeView = DayView.getInstance();
 				break;
 			default:
-				// No change
-				System.err.println("Invalid ViewType, this shouldn't be possible to see...");
 				break;
 			
 		}
@@ -110,6 +120,8 @@ public class CalendarApp extends JFrame {
 	}
 	
     public static void main(String[] args){
-		app = new CalendarApp();
+        EventQueue.invokeLater(() -> {
+            app = new CalendarApp();
+        });
 	}
 }

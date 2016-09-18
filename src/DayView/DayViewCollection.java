@@ -13,7 +13,6 @@ import java.util.LinkedList;
 
 import javax.swing.Box;
 import javax.swing.InputMap;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;

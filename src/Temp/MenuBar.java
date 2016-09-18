@@ -15,7 +15,11 @@ import javax.swing.JPanel;
 import Records.CachedCalendar;
 import constants.MonthsOfYear;
 import constants.ViewTypes;
-
+/**
+ * 
+ * Top menubar to be show in the frame, for all viewtypes
+ *
+ */
 public class MenuBar extends JPanel{
 
 	private static final long serialVersionUID = 341341509482431909L;
@@ -35,8 +39,9 @@ public class MenuBar extends JPanel{
 	 * Container this is set in.
 	 */
 	private CalendarApp calendarApp				= null;
+	
 	/*
-	 * Values being covered in comboboxes 
+	 * Values being hovered in comboboxes 
 	 */
 	private int Year 	= 0;
 	private int Month 	= 0;
@@ -59,6 +64,7 @@ public class MenuBar extends JPanel{
 		initUpdate();
 	
 	}
+	
 	/**
 	 * Initialize the update button
 	 */

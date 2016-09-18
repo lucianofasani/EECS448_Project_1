@@ -15,8 +15,9 @@ public class EventCache {
 
 	private static final String EVENT_FILE = "Events.txt";
 
-	JSONArray events;
+	private JSONArray events;
 	private static EventCache sInstance = null;
+	
 	private EventCache(){
 		try{
 			events = FileIO.readToArray(EVENT_FILE);
