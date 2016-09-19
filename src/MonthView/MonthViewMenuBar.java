@@ -7,8 +7,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import CalendarApp.CalendarApp;
 import constants.DaysOfWeek;
-import Temp.CalendarApp;
 
 
 public class MonthViewMenuBar extends JPanel {

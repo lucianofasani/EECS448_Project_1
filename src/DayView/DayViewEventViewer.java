@@ -13,12 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import CalendarApp.CalendarApp;
 import Event.Event;
 import Event.EventCache;
 import Exceptions.InstanceOverflowException;
 import Listeners.Lock;
 import Styles.FontManager;
-import Temp.CalendarApp;
 
 public class DayViewEventViewer extends JFrame{
 

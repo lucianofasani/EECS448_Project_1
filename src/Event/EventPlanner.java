@@ -24,11 +24,11 @@ import javax.swing.JTextField;
 
 import org.json.simple.JSONObject;
 
+import CalendarApp.CalendarApp;
 import Exceptions.InstanceOverflowException;
 import Exceptions.IrregularFormatException;
 import Listeners.Lock;
 import Styles.FontManager;
-import Temp.CalendarApp;
 
 public class EventPlanner extends JFrame {
 

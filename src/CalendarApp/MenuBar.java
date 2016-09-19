@@ -1,4 +1,4 @@
-package Temp;
+package CalendarApp;
 
 import java.awt.Color;
 import java.awt.Component;

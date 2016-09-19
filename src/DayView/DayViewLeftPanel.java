@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import CalendarApp.CalendarApp;
 import Event.Event;
 import Event.EventPlanner;
 import Exceptions.InstanceOverflowException;
 import Listeners.EventPicker;
 import Styles.FontManager;
-import Temp.CalendarApp;
 
 public class DayViewLeftPanel extends JPanel {
 

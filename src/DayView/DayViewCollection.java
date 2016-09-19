@@ -19,13 +19,13 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
+import CalendarApp.CalendarApp;
 import Event.DateFormatter;
 import Event.Event;
 import Event.EventCache;
 import Event.FormatTypes;
 import Listeners.EventPicker;
 import Records.CachedCalendar;
-import Temp.CalendarApp;
 
 public class DayViewCollection extends JPanel{
 	/**

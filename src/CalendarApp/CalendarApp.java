@@ -1,4 +1,4 @@
-package Temp;
+package CalendarApp;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
