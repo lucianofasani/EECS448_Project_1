@@ -18,6 +18,7 @@ import constants.ViewTypes;
  * Main entry point. The JFrame that everything is set in.
  *
  */
+
 public class CalendarApp extends JFrame {
 	
 	/**

@@ -1,7 +1,11 @@
 package Listeners;
 
 import java.util.concurrent.Semaphore;
-
+/**
+ * 
+ * Instance count lock for popup windows.
+ *	call Lock.getInstance().tryAcquire() before pushing a new window
+ */
 public class Lock extends Semaphore{
 	/**
 	 * 

@@ -40,7 +40,10 @@ public class EventPlanner extends JFrame {
 
 	
 	private static final String[] time_strings = new String[2*12*4];
-
+	
+	/**
+	 *  Initialize the time String array in chronological order
+	 */
 	static{
 		int count = 0;
 		for(int t = 0; t<2; t++)
@@ -93,16 +96,16 @@ public class EventPlanner extends JFrame {
 	
 	private innerSaveClass saveClass;
 
-	
-
 	private String mDate;
 
 	private static  EventPlanner mInstance;
+	
 	public static EventPlanner create(Date dateOn) throws InstanceOverflowException{
 		if(!Lock.getLock().tryAcquire())
 		{
 			throw new InstanceOverflowException();
 		}
+		
 		if(mInstance == null ){
 			return mInstance = new EventPlanner(dateOn);
 		}
@@ -112,8 +115,7 @@ public class EventPlanner extends JFrame {
 		}
 
 	}
-
-
+	
 	private EventPlanner(Date dateOn){
 
 		saveClass = new innerSaveClass();
@@ -252,9 +254,12 @@ public class EventPlanner extends JFrame {
 		}
 
 		setVisible(true);
-
 	}
 	
+	/**
+	 * Save the event to JSON and exit this frame
+	 * @throws IrregularFormatException
+	 */
 	@SuppressWarnings("unchecked")
 	private void saveAndExit() throws IrregularFormatException{
 		JSONObject event;

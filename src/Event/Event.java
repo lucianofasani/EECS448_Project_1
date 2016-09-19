@@ -1,5 +1,9 @@
 package Event;
-
+/**
+ * 
+ * Event container for handling
+ *
+ */
 public class Event {
 	public static final String DATE_STRING = "date";
 	public static final String START_STRING = "start";

@@ -10,7 +10,9 @@ import FileOperations.FileIO;
 
 
 
-
+/**
+ * Handling class for scheduled events
+ */
 public class EventCache {
 
 	private static final String EVENT_FILE = "Events.txt";
@@ -24,10 +26,10 @@ public class EventCache {
 		}catch(FileNotFoundException e){
 			events = new JSONArray();
 		}
-		
-
-		
 	}
+	/**
+	 * Singleton Instance
+	 */
 	public static EventCache getInstance(){
 		if(sInstance == null){
 			sInstance = new EventCache();
@@ -35,12 +37,20 @@ public class EventCache {
 		return sInstance;
 	}
 	
+	/**
+	 * 
+	 * @param event to add to the handler
+	 */
 	@SuppressWarnings("unchecked")
 	public void addEvent(JSONObject event){
 		events.add(event);
 		FileIO.writeToFile(EVENT_FILE, events);
 	}
-	
+	/**
+	 * 
+	 * @param dateString to get dates for
+	 * @return List of events on that date
+	 */
 	public LinkedList<Event> getEventsForDate(String dateString){
 		LinkedList<Event> dayEvents = new LinkedList<Event>();
 		for(int idx = 0; idx<events.size(); idx++){
@@ -62,7 +72,10 @@ public class EventCache {
 		}
 		return dayEvents;
 	}
-	
+	/**
+	 * @param Event to Remove
+	 * @return true if the event was removed
+	 */
 	@SuppressWarnings("unchecked")
 	public boolean removeEvent(Event e){
 		

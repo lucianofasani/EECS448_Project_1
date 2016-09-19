@@ -14,7 +14,11 @@ import org.json.simple.parser.ParseException;
 
 public class FileIO {
 
-	
+	/**
+	 * Write object to file
+	 * @param filepath
+	 * @param data to write
+	 */
 	public static synchronized void writeToFile(String filepath, Object data){
 
 		BufferedWriter bw;
@@ -22,7 +26,7 @@ public class FileIO {
 
 			bw = new BufferedWriter(new FileWriter(filepath));
 			
-			String toWrite =data.toString();
+			String toWrite = data.toString();
 			
 			bw.write(toWrite);
 			
@@ -31,6 +35,12 @@ public class FileIO {
 			// Unlucky
 		}
 	}
+	/**
+	 * 
+	 * @param filepath
+	 * @return JSONArray filled with events from file
+	 * @throws FileNotFoundException
+	 */
 	public static synchronized JSONArray readToArray(String filepath) throws FileNotFoundException{
 		File file = new File(filepath);
 		if( !file.exists() || file.isDirectory() ){
@@ -47,6 +57,12 @@ public class FileIO {
 		
 		return jsonArray;
 	}
+	/**
+	 * 
+	 * @param filepath
+	 * @return the cached date from file
+	 * @throws FileNotFoundException
+	 */
 	public static synchronized String readDate(String filepath) throws FileNotFoundException{
 		File file = new File(filepath);
 		if( !file.exists() || file.isDirectory() ){
