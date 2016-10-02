@@ -149,7 +149,7 @@ public class MenuBar extends JPanel{
 		}
 		
 		monthList = new JComboBox<String>(names);
-		monthList.setSelectedIndex(CachedCalendar.getInstance().Month);
+		monthList.setSelectedIndex(CachedCalendar.getInstance().Month);//this line sometimes throws error
 		this.Month = CachedCalendar.getInstance().Month;
 		monthList.addActionListener(new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {

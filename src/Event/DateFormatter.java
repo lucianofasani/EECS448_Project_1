@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class DateFormatter {
 	
-	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy");;
-	private static SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("M-d-yyyy");;
+	private static SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("M-d-yyyy hh:mm:ss");
 	public static SimpleDateFormat getFormat(){
 		return dateFormatter;
 	}

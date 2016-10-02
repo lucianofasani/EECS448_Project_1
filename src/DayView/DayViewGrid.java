@@ -2,6 +2,7 @@ package DayView;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Color;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -21,7 +22,8 @@ public class DayViewGrid extends JPanel{
 	public DayViewGrid(JScrollPane pane, Date d, LinkedList<Event> todaysEvents, EventPicker eventPicker){
 		int sizeOfEachGrid = 100;
 		int sizeOfList = todaysEvents.size();
-		setLayout(new GridLayout(sizeOfList>6?sizeOfList:6,1));
+		GridLayout listEvents = new GridLayout(sizeOfList>6?sizeOfList:6,1);
+		setLayout(listEvents);
 		setMinimumSize(new Dimension(pane.getWidth(),pane.getHeight()));
 		setMaximumSize(new Dimension(pane.getWidth(),sizeOfList*sizeOfEachGrid));
 		setPreferredSize(new Dimension(pane.getWidth(),sizeOfList*sizeOfEachGrid));

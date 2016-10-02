@@ -64,7 +64,7 @@ public class EventCache {
 				e.StartTime = (String)theEvent.get(Event.START_STRING);
 				e.StopTime = (String)theEvent.get(Event.STOP_STRING);
 				e.Description = (String)theEvent.get(Event.DESC_STRING);
-				
+				//e.Overlap = (String)theEvent.get(Event.OVERLAP_STRING);
 				e.unique_id = (long)theEvent.get(Event.ID_STRING);
 				dayEvents.add(e);
 			}

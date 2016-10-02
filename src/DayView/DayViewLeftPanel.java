@@ -101,7 +101,6 @@ public class DayViewLeftPanel extends JPanel {
 			}
 			
 		});
-		add(b);
-	
+		add(b);	
 	}
 }
