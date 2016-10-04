@@ -44,8 +44,8 @@ public class EventPlanner extends JFrame {
 	
 	private static final Integer[] dayToSpan_integers = new Integer[31];
 	
-	private static final String[] repeat_strings = {"Weekly", "Biweekly", "Monthly"};
-		
+	private static final String[] repeat_strings = {"Monthly", "Weekly", "Biweekly"};
+			
 	/**
 	 *  Initialize the time String array in chronological order
 	 */
@@ -80,7 +80,7 @@ public class EventPlanner extends JFrame {
 	
 	/**
 	 * added by Denae
-	 *  Initialize the days to span string array
+	 *  Initialize the days to span string array and the dateToRepeat
 	 */
 	static{
 		for(int i = 0; i < 31; i++){
@@ -101,8 +101,6 @@ public class EventPlanner extends JFrame {
 	private JRadioButton allDay;
 	private JRadioButton multiDay;
 	private JRadioButton repeat;
-	private JRadioButton day; //Sun, Mon,...,Sat
-	private JRadioButton date; //1,2,...,30 || 31 || 28
 	private JTextArea descriptionText;
 
 	
@@ -190,6 +188,7 @@ public class EventPlanner extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					toggleEnabled(false);
 					toggleMultiDay(false);
+					repeat.setSelected(true);
 				}
 			});
 
@@ -199,6 +198,7 @@ public class EventPlanner extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					toggleEnabled(true);
 					toggleMultiDay(false);
+					repeat.setSelected(true);
 				}
 			});
 			
@@ -209,6 +209,7 @@ public class EventPlanner extends JFrame {
 				public void actionPerformed(ActionEvent e) {//toggle functions make it to where other options are grayed out when this radio button is selected
 					toggleEnabled(false);//gray out time range feature
 					toggleMultiDay(true);//ungray the dayspan comboBox and label
+					repeat.setSelected(false);
 				}
 			});
 			
@@ -218,27 +219,25 @@ public class EventPlanner extends JFrame {
 			
 			repeat = new JRadioButton("Repeat");
 			repeat.setBounds(50,160,70,30);
+			repeat.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					if(repeat.isSelected() == true){
+						toggleRepeat(false);
+					}
+					else{
+						toggleRepeat(true);
+					}
+				}
+			});
 			
-			day = new JRadioButton("Day");
-			day.setBounds(50,190,46,30);
-			
-			date = new JRadioButton("Date");
-			date.setBounds(300,160,150,30);
-
 			startGroup.add(allDay);
 			startGroup.add(timeRange);
 			startGroup.add(multiDay);
-			
-			repeatGroup.add(day);
-			repeatGroup.add(date);
-		
 
 			add(allDay);
 			add(timeRange);
 			add(multiDay);
 			add(repeat);
-			add(day);
-			add(date);
 
 			startTimeLabel = new JLabel("Start Time:");
 			startTimeLabel.setBounds(50,270,150,30);
@@ -334,7 +333,7 @@ public class EventPlanner extends JFrame {
 	 */
 	@SuppressWarnings("unchecked")
 	private void saveAndExit() throws IrregularFormatException{
-		//multiDay stuff added by Denae
+		//multiDay stuff added by Denae...can't repeat on multiday events
 		if(multiDay.isSelected()){
 			String[] str_array = mDate.split("-"); //split date string "1-13-2016" on "-" and put into array
 			int month = Integer.parseInt(str_array[0]); //change month value in array to int
@@ -357,14 +356,14 @@ public class EventPlanner extends JFrame {
 						day = 1;
 						j = 0;
 					}
-					if(month == 4 || month == 6 || month == 8 || month == 10){//this case covers months with 31 days
+					if(month == 4 || month == 6 || month == 7 || month == 8 || month == 10){//this case covers months with 31 days
 						if(day+j > 31){
 							month++;
 							day = 1;
 							j = 0;
 						}
 					}
-					if(month == 1 || month == 3 || month == 5 || month == 7 || month == 9 || month == 11){//this case covers months with 30 days
+					if(month == 1 || month == 3 || month == 5 || month == 9 || month == 11){//this case covers months with 30 days
 						if(day+j > 30){
 							month++;
 							day = 1;
@@ -388,7 +387,63 @@ public class EventPlanner extends JFrame {
 			this.dispose();
 			Lock.getLock().release();
 			CalendarApp.app.updateCurrentView();
-		}//ends multiDay stuff
+		}//ends multiDay code
+		
+		//begin repeat monthly code
+		/*else if(repeat.isSelected() && repeatType.getSelectedIndex() == 0){
+			String[] str_array = mDate.split("-"); //split date string "1-13-2016" on "-" and put into array
+			int month = Integer.parseInt(str_array[0]); //change month value in array to int
+			int day = Integer.parseInt(str_array[1]); //change day value in array to int
+			int year = Integer.parseInt(str_array[2]); //change year value in array to int
+			int j = 0; //month increment
+			for(int i = month; i <= 12; i++){ //will go for the duration of the year
+				JSONObject newEvent;
+				try{
+					newEvent = new JSONObject();
+					newEvent.put(Event.NAME_STRING, (String)nameText.getText());
+					if(day == 31){//if they add something on the 31, lets take the liberty of actually adding it to every month
+						System.out.println("first if");
+						if(month+j == 4 || month+j == 6 || month+j == 9 || month+j == 11){//this case covers months with 30 days
+							System.out.println("second if");
+							newEvent.put(Event.DATE_STRING, (month+j) +"-"+ (30) + "-" + year);
+						}
+						else if(month+j == 2 && year == 2016){//this case covers february leap year
+							newEvent.put(Event.DATE_STRING, (month+j) +"-"+ (29) + "-" + year);
+						}
+						else if(month+j == 2 && year == 2017){//this case covers february non leap year
+							newEvent.put(Event.DATE_STRING, (month+j) +"-"+ (28) + "-" + year);
+						}
+						else{
+							newEvent.put(Event.DATE_STRING, (month+j) +"-"+ (day) + "-" + year);
+						}
+					}
+					else{//this covers the case for all other day options
+						newEvent.put(Event.DATE_STRING, (month+j) +"-"+ (day) + "-" + year);
+					}
+					if(allDay.isSelected()){
+						newEvent.put(Event.START_STRING, "-1");
+						newEvent.put(Event.STOP_STRING, "-1");
+					}
+					else{
+						newEvent.put(Event.START_STRING, startTime.getSelectedItem().toString());
+						newEvent.put(Event.STOP_STRING, endTime.getSelectedItem().toString());
+					}
+					newEvent.put(Event.DESC_STRING, (String)descriptionText.getText());
+					j++;
+					Random r = new Random(System.currentTimeMillis());
+					long id = r.nextLong();
+					newEvent.put(Event.ID_STRING, id );
+				}catch(Exception e){
+					throw new IrregularFormatException();
+				}
+				EventCache.getInstance().addEvent(newEvent);
+			}
+			JOptionPane.showMessageDialog(this, "Event Saved!","Event Planner",JOptionPane.INFORMATION_MESSAGE);
+			this.dispose();
+			Lock.getLock().release();
+			CalendarApp.app.updateCurrentView();
+		}//ends repeat monthly code*/
+		
 		
 		else{//old team's original code for event creation
 			JSONObject event;
@@ -434,17 +489,13 @@ public class EventPlanner extends JFrame {
 		daysToSpanLabel.setEnabled(on); //when multiday is selected these will be true
 		daysToSpan.setEnabled(on);
 		repeat.setEnabled(!on); //when multiday is selected change all these to be false
-		date.setEnabled(!on);
-		date.setSelected(!on);
-		day.setEnabled(!on);
-		day.setSelected(!on);
 		repeatType.setEnabled(!on);
 	}
 	
 	private void toggleRepeat( boolean on ){
-		day.setEnabled(on);
-		date.setEnabled(on);
+		repeatType.setEnabled(!on);
 	}
+	
 	
 	private class innerSaveClass implements ActionListener{
 
