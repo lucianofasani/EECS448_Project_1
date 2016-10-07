@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import javax.swing.Box;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -112,6 +113,20 @@ public class DayViewCollection extends JPanel{
 	         @Override
 	         public int compare(Event o1, Event o2) {
 	        	
+	        	 /**
+	        	  * This block of code runs comparisons of two events to see if they overlap each other while it is sorting
+	        	  * them into chronological order
+	        	  */	        	 
+	        	 if((getTimeStringAsMinutes(o1.StartTime) <= getTimeStringAsMinutes(o2.StartTime) ) && (getTimeStringAsMinutes(o1.StopTime) >= getTimeStringAsMinutes(o2.StartTime))){
+	        		 JOptionPane.showMessageDialog(null, "WARNING: There are overlapping events present in this day.");
+	        	 } else if((getTimeStringAsMinutes(o1.StartTime) >= getTimeStringAsMinutes(o2.StartTime) ) && (getTimeStringAsMinutes(o1.StopTime) <= getTimeStringAsMinutes(o2.StartTime))){
+	        		 JOptionPane.showMessageDialog(null, "WARNING: There are overlapping events present in this day.");
+	        	 } else if((getTimeStringAsMinutes(o1.StopTime) <= getTimeStringAsMinutes(o2.StopTime) ) && (getTimeStringAsMinutes(o1.StartTime) >= getTimeStringAsMinutes(o2.StopTime))){
+	        		 JOptionPane.showMessageDialog(null, "WARNING: There are overlapping events present in this day.");
+	        	 } else if((getTimeStringAsMinutes(o1.StopTime) >= getTimeStringAsMinutes(o2.StopTime) ) && (getTimeStringAsMinutes(o1.StartTime) <= getTimeStringAsMinutes(o2.StopTime))){
+	        		 JOptionPane.showMessageDialog(null, "WARNING: There are overlapping events present in this day.");
+	        	 }
+	        	 
 	        	 
 	             return getTimeStringAsMinutes(o1.StartTime)-getTimeStringAsMinutes(o2.StartTime);
 	         }
