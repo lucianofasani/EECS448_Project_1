@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
 import java.util.Random;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -45,6 +46,11 @@ public class EventPlanner extends JFrame {
 	private static final Integer[] dayToSpan_integers = new Integer[31];
 	
 	private static final String[] repeat_strings = {"Monthly", "Weekly", "Biweekly"};
+	
+	private static final String[] daysOfWeek_strings = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
+	private int[] daysSelected = new int[7];
+
 			
 	/**
 	 *  Initialize the time String array in chronological order
@@ -92,7 +98,7 @@ public class EventPlanner extends JFrame {
 	private JComboBox<String> endTime;
 	private JComboBox<Integer> daysToSpan; //JCombo to pick number of days to span
 	private JComboBox<String> repeatType; //i.e. weekly, biweekly, monthly
-	private JCheckBox Sunday;
+	private JCheckBox[] days = new JCheckBox[daysOfWeek_strings.length];
 	private JLabel startTimeLabel;
 	private JLabel endTimeLabel;
 	private JLabel daysToSpanLabel;
@@ -120,6 +126,7 @@ public class EventPlanner extends JFrame {
 	private String mDate;
 
 	private static  EventPlanner mInstance;
+	
 	
 	public static EventPlanner create(Date dateOn) throws InstanceOverflowException{
 		if(!Lock.getLock().tryAcquire())
@@ -230,6 +237,22 @@ public class EventPlanner extends JFrame {
 				}
 			});
 			
+			
+			//checkboxes for day of week initilizations
+			for(int i = 0; i < days.length; i++){
+				days[i] = new JCheckBox(daysOfWeek_strings[i]);
+			}
+			days[0].setBounds(70,200,50,20); //Sunday
+			days[1].setBounds(120,200,50,20);
+			days[2].setBounds(172,200,50,20);
+			days[3].setBounds(220,200,55,20); //Wednesday
+			days[4].setBounds(275,200,50,20);
+			days[5].setBounds(157,240,47,20);
+			days[6].setBounds(200,240,50,20);//Saturday
+
+			//checkbox list initializaiton done
+			
+			
 			startGroup.add(allDay);
 			startGroup.add(timeRange);
 			startGroup.add(multiDay);
@@ -238,6 +261,14 @@ public class EventPlanner extends JFrame {
 			add(timeRange);
 			add(multiDay);
 			add(repeat);
+			add(days[0]);
+			add(days[1]);
+			add(days[2]);
+			add(days[3]);
+			add(days[4]);
+			add(days[5]);
+			add(days[6]);
+
 
 			startTimeLabel = new JLabel("Start Time:");
 			startTimeLabel.setBounds(50,270,150,30);
@@ -265,11 +296,24 @@ public class EventPlanner extends JFrame {
 			daysToSpan.setBounds(290,126,40,20);
 			add(daysToSpan);
 			
+			//code added by Denae to make repeat option combobox
 			repeatType = new JComboBox<String>(repeat_strings);
 			repeatType.setBounds(120,166,80,20);
+			repeatType.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					if(repeatType.getSelectedIndex() == 0){
+						toggleDays(false);
+					}
+					else{
+						toggleDays(true);
+					}
+				}
+			});
 			add(repeatType);
-			
+						
 			allDay.setSelected(true);
+			repeat.setSelected(true);
+			repeatType.setSelectedIndex(-1);
 			toggleEnabled(false);
 			toggleMultiDay(false);
 		}
@@ -333,12 +377,13 @@ public class EventPlanner extends JFrame {
 	 */
 	@SuppressWarnings("unchecked")
 	private void saveAndExit() throws IrregularFormatException{
+		Calendar cal = Calendar.getInstance();
+		String[] str_array = mDate.split("-"); //split date string "1-13-2016" on "-" and put into array
+		int month = Integer.parseInt(str_array[0]); //change month value in array to int
+		int day = Integer.parseInt(str_array[1]); //change day value in array to int
+		int year = Integer.parseInt(str_array[2]); //change year value in array to int
 		//multiDay stuff added by Denae...can't repeat on multiday events
 		if(multiDay.isSelected()){
-			String[] str_array = mDate.split("-"); //split date string "1-13-2016" on "-" and put into array
-			int month = Integer.parseInt(str_array[0]); //change month value in array to int
-			int day = Integer.parseInt(str_array[1]); //change day value in array to int
-			int year = Integer.parseInt(str_array[2]); //change year value in array to int
 			int j = 0;//counter to increment the day
 			for(int i = 0; i < daysToSpan.getSelectedIndex()+1; i++){ //add event to days determined by the number of days the user chooses to span
 				JSONObject newEvent;
@@ -390,11 +435,7 @@ public class EventPlanner extends JFrame {
 		}//ends multiDay code
 		
 		//begin repeat monthly code
-		/*else if(repeat.isSelected() && repeatType.getSelectedIndex() == 0){
-			String[] str_array = mDate.split("-"); //split date string "1-13-2016" on "-" and put into array
-			int month = Integer.parseInt(str_array[0]); //change month value in array to int
-			int day = Integer.parseInt(str_array[1]); //change day value in array to int
-			int year = Integer.parseInt(str_array[2]); //change year value in array to int
+		else if(repeat.isSelected() && repeatType.getSelectedIndex() == 0){
 			int j = 0; //month increment
 			for(int i = month; i <= 12; i++){ //will go for the duration of the year
 				JSONObject newEvent;
@@ -402,9 +443,7 @@ public class EventPlanner extends JFrame {
 					newEvent = new JSONObject();
 					newEvent.put(Event.NAME_STRING, (String)nameText.getText());
 					if(day == 31){//if they add something on the 31, lets take the liberty of actually adding it to every month
-						System.out.println("first if");
 						if(month+j == 4 || month+j == 6 || month+j == 9 || month+j == 11){//this case covers months with 30 days
-							System.out.println("second if");
 							newEvent.put(Event.DATE_STRING, (month+j) +"-"+ (30) + "-" + year);
 						}
 						else if(month+j == 2 && year == 2016){//this case covers february leap year
@@ -438,11 +477,188 @@ public class EventPlanner extends JFrame {
 				}
 				EventCache.getInstance().addEvent(newEvent);
 			}
-			JOptionPane.showMessageDialog(this, "Event Saved!","Event Planner",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Event Saved For the duartion of this year!","Event Planner",JOptionPane.INFORMATION_MESSAGE);
 			this.dispose();
 			Lock.getLock().release();
 			CalendarApp.app.updateCurrentView();
-		}//ends repeat monthly code*/
+		}//ends repeat monthly code
+		
+		else if(repeat.isSelected() && repeatType.getSelectedIndex() == 1){//if repeat weekly
+			getDaysSelected();
+			cal.set(year, month-1, day); //this line returns the week number of the day you clicked on
+			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); //this line stores that week in an int
+			int j = dayOfWeek-1; //increments the daysSelected array
+			while(month <= 12){
+				if(daysSelected[j] != -1){//if day is one of the days the user selected to repeat on, add event
+					JSONObject event;
+					try{
+						event = new JSONObject();
+						event.put(Event.NAME_STRING, (String)nameText.getText());
+						event.put(Event.DATE_STRING, month +"-"+ (day) + "-" + year);
+						if(allDay.isSelected())
+						{
+							event.put(Event.START_STRING, "-1");
+							event.put(Event.STOP_STRING, "-1");
+						}else{
+							event.put(Event.START_STRING, startTime.getSelectedItem().toString());
+							event.put(Event.STOP_STRING, endTime.getSelectedItem().toString());
+						}
+						event.put(Event.DESC_STRING, (String)descriptionText.getText());
+										
+						Random r = new Random(System.currentTimeMillis());
+						long id = r.nextLong();
+						event.put(Event.ID_STRING, id );
+					}catch(Exception e){
+						throw new IrregularFormatException();
+					}                  
+			
+					EventCache.getInstance().addEvent(event);
+					day++;
+					cal.set(year, month-1,day-1);
+					int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);//max number of days in current month
+					//this first set of ifs checks to see if we're at the end of the month
+					if (day > maxDay && month != 12) {
+						month++;
+						day = 1;
+					}
+					else if(month == 12 && day > 31){
+						break;
+					}
+					if(j == 6){//if we're at the end of the week, start back over on Sunday
+						j = 0;	
+					}
+					else{//go to the next day of the week
+						j++;
+					}
+				}
+				else{//if day is not one of the days the user selected, go to the next day
+					day++;
+					cal.set(year, month-1,day-1);
+					int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);//max num of days in current month
+					//check if we're at end of the month again
+					if(day > maxDay && month != 12){
+						month++;			
+						day = 1;
+					}
+					else if(month == 12 && day > 31){
+						break;
+					}
+					if(j == 6){//check if we're at end of the week
+						j = 0;	
+					}
+					else{//otherwise go to the next day of week
+						j++;
+					}
+				}
+			}
+			JOptionPane.showMessageDialog(this, "Event Saved for the duration of this year!","Event Planner",JOptionPane.INFORMATION_MESSAGE);
+			this.dispose();
+			Lock.getLock().release();
+			CalendarApp.app.updateCurrentView();
+		}//end repeat weekly code
+		
+		
+		else if(repeat.isSelected() && repeatType.getSelectedIndex() == 2){//repeat biweekly code
+			getDaysSelected();
+			cal.set(year, month-1, day); //this line returns the week number of the day you clicked on
+			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); //this line stores that day of week in an int
+			int j = dayOfWeek-1; //begins on the day of the week they clicked on to add the event, increments the daysSelected array
+			while(month <= 12){
+				if(daysSelected[j] != -1){//if day is one of the days the user selected to repeat on, add event
+					JSONObject event;
+					try{
+						event = new JSONObject();
+						event.put(Event.NAME_STRING, (String)nameText.getText());
+						event.put(Event.DATE_STRING, month +"-"+ (day) + "-" + year);
+						if(allDay.isSelected())
+						{
+							event.put(Event.START_STRING, "-1");
+							event.put(Event.STOP_STRING, "-1");
+						}else{
+							event.put(Event.START_STRING, startTime.getSelectedItem().toString());
+							event.put(Event.STOP_STRING, endTime.getSelectedItem().toString());
+						}
+						event.put(Event.DESC_STRING, (String)descriptionText.getText());
+										
+						Random r = new Random(System.currentTimeMillis());
+						long id = r.nextLong();
+						event.put(Event.ID_STRING, id );
+					}catch(Exception e){
+						throw new IrregularFormatException();
+					}                  
+			
+					EventCache.getInstance().addEvent(event);
+					day++;
+					cal.set(year,month-1,day-1);
+					int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);//max number of days in current month
+					if(day > maxDay && month != 12){
+						if(j != 6){//if we're adding events and we're not at the end of the week, keep adding events in the same week of the next month
+							day = 1;
+							month++;
+						}
+						else{
+							day = 1 + 7;//if we are at the end of a week and done adding events, skip the first week of the next month
+							j = 0;
+							month++;
+						}
+					}
+					else if(day > maxDay && month == 12){//if we increment day and we're at the end of the year, get out of the loop
+						break;
+					}
+					if(j == 6){//if at the end of a week, add 7 days to skip a week
+						day += 7;
+						j = 0;
+						if(day > maxDay){//if we add 7 days and day becomes greater than the number of days in the month, go to the first Sunday of the next month
+							cal.set(year,month,1);
+							int firstSunday = cal.get(Calendar.DAY_OF_WEEK);
+							day = 1 + (7-firstSunday) + 1;
+							j = 0;
+							month++;
+						}
+					}
+					else{//if we're not at the end of week, go to the next day in the week
+						j++;
+					}
+				}
+				else{//if day isn't one of the days they selected to repeat on, perform the same instructions as above but don't add an event
+					day++;
+					cal.set(year,month-1,day-1);
+					int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);//max num of days in current month
+					if(day > maxDay && month != 12){
+						if(j != 6){//if we're adding events and we're not at the end of the week, keep adding events in the same week of the next month
+							day = 1;
+							month++;
+						}
+						else{
+							day = 1 + 7;//if we are at the end of a week and done adding events, skip the first week of the next month
+							j = 0;
+							month++;
+						}
+					}
+					else if(day > maxDay && month == 12){//if we increment day and we're at the end of the year, get out of the loop
+						break;
+					}
+					if(j == 6){//if at the end of a week, add 7 days to skip a week
+						day += 7;
+						j = 0;
+						if(day > maxDay){//if we add 7 days and day becomes greater than the number of days in the month, go to the first Sunday of the next month
+							cal.set(year,month,1);
+							int firstSunday = cal.get(Calendar.DAY_OF_WEEK);
+							day = 1 + (7-firstSunday) + 1;
+							j = 0;
+							month++;
+						}
+					}
+					else{//if we're not at the end of week, go to the next day in the week
+						j++;
+					}
+				}
+			}
+			JOptionPane.showMessageDialog(this, "Event Saved for the duration of this year!","Event Planner",JOptionPane.INFORMATION_MESSAGE);
+			this.dispose();
+			Lock.getLock().release();
+			CalendarApp.app.updateCurrentView();
+		}//end repeat biweekly code
 		
 		
 		else{//old team's original code for event creation
@@ -488,12 +704,56 @@ public class EventPlanner extends JFrame {
 	private void toggleMultiDay( boolean on ){
 		daysToSpanLabel.setEnabled(on); //when multiday is selected these will be true
 		daysToSpan.setEnabled(on);
-		repeat.setEnabled(!on); //when multiday is selected change all these to be false
+		repeat.setEnabled(!on); //when multiday is selected don't allow a repeat option
 		repeatType.setEnabled(!on);
+		days[0].setEnabled(!on);
+		days[1].setEnabled(!on);
+		days[2].setEnabled(!on);
+		days[3].setEnabled(!on);
+		days[4].setEnabled(!on);
+		days[5].setEnabled(!on);
+		days[6].setEnabled(!on);
+
 	}
 	
-	private void toggleRepeat( boolean on ){
+	private void toggleRepeat( boolean on ){ //when repeat is enabled, make days available
 		repeatType.setEnabled(!on);
+		days[0].setEnabled(!on);
+		days[1].setEnabled(!on);
+		days[2].setEnabled(!on);
+		days[3].setEnabled(!on);
+		days[4].setEnabled(!on);
+		days[5].setEnabled(!on);
+		days[6].setEnabled(!on);
+	}
+	
+	/*
+	 * 
+	 */
+	private void toggleDays( boolean on ){//only available in weekly and biweekly mode
+		days[0].setEnabled(on);
+		days[1].setEnabled(on);
+		days[2].setEnabled(on);
+		days[3].setEnabled(on);
+		days[4].setEnabled(on);
+		days[5].setEnabled(on);
+		days[6].setEnabled(on);
+	}
+	
+	/*
+	 * this function gets the days the user selected in repeat mode
+	 * if a day is selected it puts the day of the week that day falls on (i.e. 0 for Sunday, 1 for Monday
+	 * otherwise it puts a -1 in the array
+	 */
+	private void getDaysSelected(){
+		for(int i = 0; i < days.length; i++){
+			if(days[i].isSelected()){
+				daysSelected[i] = i;
+			}
+			else{
+				daysSelected[i] = -1;
+			}
+		}
 	}
 	
 	
