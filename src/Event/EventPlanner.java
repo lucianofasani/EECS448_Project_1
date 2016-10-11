@@ -35,20 +35,22 @@ import Styles.FontManager;
 public class EventPlanner extends JFrame {
 
 	/**
-	 * 
+	 * comment added by brocksauvage
+	 * No clue as to what this variable does. Appears to be a user ID thing for features that
+	 * didn't make it in.
 	 */
 	private static final long serialVersionUID = 5294561201437336422L;
 	
 
-	
+	/**
+	 * comment added by brocksauvage
+	 * These string arrays act as labels in the UI whenever an event is being created. Used
+	 * specifically in the event creation window.
+	 */
 	private static final String[] time_strings = new String[2*12*4];
-	
 	private static final Integer[] dayToSpan_integers = new Integer[31];
-	
 	private static final String[] repeat_strings = {"Monthly", "Weekly", "Biweekly"};
-	
 	private static final String[] daysOfWeek_strings = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-
 	private int[] daysSelected = new int[7];
 
 			
@@ -94,6 +96,12 @@ public class EventPlanner extends JFrame {
 		}
 	}
 
+	/**
+	 * Comment added by Brock Sauvage
+	 * This section contains the declaration of the UI components of the event creation window.
+	 * Elements included are the time boxes, labels, selection buttons, the text area to show
+	 * any events that exist on a given day.
+	 */
 	private JComboBox<String> startTime;
 	private JComboBox<String> endTime;
 	private JComboBox<Integer> daysToSpan; //JCombo to pick number of days to span
@@ -109,15 +117,17 @@ public class EventPlanner extends JFrame {
 	private JRadioButton repeat;
 	private JTextArea descriptionText;
 
+	/*
+	 * Comment added by Brock Sauvage
+	 * These components are responsible for the dimensions of the description box, as well as the 
+	 * label for it.
+	 */
 	
 	private static final int TEXT_BOX_LENGTH = 300;
-
 	private static final int DESCRIPTION_Y = 375;
 	private static final int DESCRIPTION_HEIGHT = 125;
-
 	private static final int NAME_Y = 45;
 	private static final int NAME_HEIGHT = 30;
-	
 	private static final int FRAME_HEIGHT = 600;
 	private static final int FRAME_WIDTH = 400;
 	
@@ -127,7 +137,15 @@ public class EventPlanner extends JFrame {
 
 	private static  EventPlanner mInstance;
 	
-	
+	/**
+	 * Comment By Brock Sauvage
+	 * Method written by previous group
+	 * @param dateOn
+	 * @return
+	 * @throws InstanceOverflowException
+	 * @Brief: It appears as though this method is responsible for creating an EventPlanner object if
+	 * 		   one does not currently exist.
+	 */
 	public static EventPlanner create(Date dateOn) throws InstanceOverflowException{
 		if(!Lock.getLock().tryAcquire())
 		{
@@ -269,7 +287,12 @@ public class EventPlanner extends JFrame {
 			add(days[5]);
 			add(days[6]);
 
-
+			/**
+			 * Comment added by Brock Sauvage
+			 * These labels and boxes will appear on the UI in the event adding window.
+			 * Each has a set of boundaries that users are required to interact within.
+			 * Users may change the values in the boxes, but they cannot go outside of the boundaries.
+			 */
 			startTimeLabel = new JLabel("Start Time:");
 			startTimeLabel.setBounds(50,270,150,30);
 			add(startTimeLabel);
@@ -318,8 +341,12 @@ public class EventPlanner extends JFrame {
 			toggleMultiDay(false);
 		}
 
-		/*
+		/**
+		 * Comment Modified by Brock Sauvage
 		 * Event Description Field
+		 * This section creates the field responsible for showing all of the events that occur on
+		 * any given day, from the event planner window. The descriptionText variable has values
+		 * that can be modified to change font, font size, and the boundaries of the text.
 		 */
 		{
 			JLabel descriptionLabel = new JLabel("Brief Event Description:");
@@ -694,6 +721,12 @@ public class EventPlanner extends JFrame {
 		}//end old team's code
 	}
 	
+	/**
+	 * Comment by Brock Sauvage
+	 * @param on, a boolean used to determine whether the toggle will be active
+	 * Essentially, this function will be used in order to allow the start and end times in the event
+	 * creation window to be modified by the user. 
+	 */
 	private void toggleEnabled( boolean on ){
 		startTime.setEnabled(on);
 		endTime.setEnabled(on);
@@ -701,6 +734,13 @@ public class EventPlanner extends JFrame {
 		startTimeLabel.setEnabled(on);
 	}
 	
+	/**
+	 * Comment by Brock Sauvage
+	 * @param on, a boolean used to determine whether the multiday event toggle is active
+	 * Function determines when an event is being set over multiple days, enables the program to allow
+	 * a time span for the event, and disables the repeat option, hiding the option to select repeat days
+	 * in the user interface.
+	 */
 	private void toggleMultiDay( boolean on ){
 		daysToSpanLabel.setEnabled(on); //when multiday is selected these will be true
 		daysToSpan.setEnabled(on);
@@ -716,6 +756,12 @@ public class EventPlanner extends JFrame {
 
 	}
 	
+	/**
+	 * Comment added by Brock Sauvage
+	 * @param on, determines whether the toggling for the repeat days will be active
+	 * Brief: This section determines whether or not the days for the "repeat day" option will be displayed
+	 * to the user and active for selection. 
+	 */
 	private void toggleRepeat( boolean on ){ //when repeat is enabled, make days available
 		repeatType.setEnabled(!on);
 		days[0].setEnabled(!on);
@@ -727,8 +773,10 @@ public class EventPlanner extends JFrame {
 		days[6].setEnabled(!on);
 	}
 	
-	/*
-	 * 
+	/**
+	 * Comment added by Brock Sauvage
+	 * @param on, determines whether the option to select certain days in weekly and biweekly mode will
+	 * be enabled.
 	 */
 	private void toggleDays( boolean on ){//only available in weekly and biweekly mode
 		days[0].setEnabled(on);
@@ -740,7 +788,7 @@ public class EventPlanner extends JFrame {
 		days[6].setEnabled(on);
 	}
 	
-	/*
+	/**
 	 * this function gets the days the user selected in repeat mode
 	 * if a day is selected it puts the day of the week that day falls on (i.e. 0 for Sunday, 1 for Monday
 	 * otherwise it puts a -1 in the array
@@ -756,7 +804,14 @@ public class EventPlanner extends JFrame {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * Comment added by Brock Sauvage
+	 * Subclass written by previous team.
+	 * Brief: A subclass of EventPlanner, it appears that this is responsible for handling errors that
+	 * can occur when a user is interacting with the program, such as entering in negative number values.
+	 *
+	 */
 	private class innerSaveClass implements ActionListener{
 
 		@Override

@@ -26,7 +26,7 @@ public class CalendarApp extends JFrame {
 	 */
     private static final long serialVersionUID = 142874753849595415L;
 	
-    public static final int FRAME_WIDTH 		= 700;
+    public static final int FRAME_WIDTH 		= 800;
     public static final int FRAME_HEIGHT 		= 700;
 	public static final int DAY_OF_MONTH_WIDTH 	= 100;
 	public static final int DAY_OF_MONTH_HEIGHT = 100;

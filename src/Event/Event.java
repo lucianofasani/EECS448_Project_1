@@ -1,8 +1,8 @@
 package Event;
 /**
- * 
+ * Comment Modified by Brock Sauvage
  * Event container for handling
- *
+ * Brief: This class initializes all of the values that are to be contained within an event object.
  */
 public class Event {
 	public static final String DATE_STRING = "date";
