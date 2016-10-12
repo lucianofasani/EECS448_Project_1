@@ -1,6 +1,7 @@
 package YearView;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -26,7 +27,7 @@ public class YearViewMenuBar extends JPanel {
 		setMaximumSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 		setPreferredSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 		setLayout(new GridLayout(1,7));
-		setBackground(Color.ORANGE);
+		setBackground(Color.white);
 		
 	
                      
@@ -45,7 +46,8 @@ public class YearViewMenuBar extends JPanel {
 			j.setMinimumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setMaximumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setPreferredSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
-			j.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			j.setBorder(BorderFactory.createLineBorder(Color.gray.brighter()));
+			name.setFont(new Font("Helvetica", Font.BOLD, 44));
 			j.add(name);
 			add(j);
 	}

@@ -28,7 +28,7 @@ public class YearViewDay extends JPanel implements IDay{
 		setMinimumSize(d);
 		setMaximumSize(d);
 		setPreferredSize(d);
-		setBorder(BorderFactory.createLineBorder(Color.black));
+		setBorder(BorderFactory.createLineBorder(Color.gray));
 		JLabel label;
              
                 int year = CachedCalendar.getInstance().Year;

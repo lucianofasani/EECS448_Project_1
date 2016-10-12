@@ -1,6 +1,7 @@
 package MonthView;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -38,6 +39,7 @@ public class MonthViewMenuBar extends JPanel {
 			j.setMaximumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setPreferredSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setBorder(BorderFactory.createLineBorder(Color.gray.brighter()));
+			name.setFont(new Font("Helvetica", Font.BOLD, 18));
 			j.add(name);
 			add(j);
 		}
