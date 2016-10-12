@@ -23,7 +23,9 @@ import Styles.FontManager;
 public class DayViewEventViewer extends JFrame{
 
 	/**
-	 * 
+	 * Comment by Brock Sauvage
+	 * Written by old team
+	 * This section is where member variables declaration occurs.
 	 */
 	private static final long serialVersionUID = 763604350492381552L;
 	
@@ -45,24 +47,29 @@ public class DayViewEventViewer extends JFrame{
 		}
 
 	}
+	
+	//More member variables, primarily the label elements of the event window
 	private JTextField startTime;
 	private JTextField endTime;
 	private JLabel allDay;
 	private JLabel startTimeLabel;
 	private JLabel endTimeLabel;
 	private JTextField nameText;
-
-
 	private JTextArea descriptionText;
 	private final Event eventToShow;
 	
+	//Member variables that set the dimensions for the event window
 	private static final int TEXT_BOX_LENGTH = 300;
-
 	private static final int DESCRIPTION_Y = 250;
 	private static final int DESCRIPTION_HEIGHT = 200;
-
 	private static final int NAME_Y = 45;
 	private static final int NAME_HEIGHT = 30;
+	
+	/**
+	 * @Pre: Takes in an IDayEvent object
+	 * @Post: Takes the event object and displays the information in the UI
+	 * @param e
+	 */
 	private DayViewEventViewer(IDayEvent e)
 	{
 		eventToShow = e.getEvent();

@@ -30,7 +30,8 @@ import Records.CachedCalendar;
 
 public class DayViewCollection extends JPanel{
 	/**
-	 * 
+	 * Comment by Brock Sauvage
+	 * This section is where member variable declaration happens.
 	 */
 	private static final long serialVersionUID = -3078193866264175025L;
 	
@@ -42,6 +43,11 @@ public class DayViewCollection extends JPanel{
 	private LinkedList<Event> allDayEvents;
 	private EventPicker eventPicker;
 	
+	/**
+	 * Comment by Brock Sauvage
+	 * This method is responsible for creating a linked list of a particular
+	 * days events, and creating a window for them to be displayed
+	 */
 	public DayViewCollection(){
 		todaysEvents = new LinkedList<Event>();
 		eventPicker = new EventPicker();
@@ -67,6 +73,11 @@ public class DayViewCollection extends JPanel{
 
 		
 	}
+	
+	/**
+	 * Comment by Brock Sauvage
+	 * This method is responsible for setting the date of an event, using the CachedCalendar class
+	 */
 	private void setDate(){
 		Calendar t = Calendar.getInstance();
 		t.set(Calendar.MONTH, CachedCalendar.getInstance().Month);
@@ -75,6 +86,12 @@ public class DayViewCollection extends JPanel{
 		date = t.getTime();
 		
 	}
+	
+	/**
+	 * Comment by Brock Sauvage
+	 * @Brief: This method is responsible for initializing the panel that
+	 * 		   the events will be displayed in.
+	 */
 	private void initThisPanel(){
 		setLayout( new BorderLayout() );
 		setPreferredSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.FRAME_HEIGHT+50));
@@ -82,10 +99,22 @@ public class DayViewCollection extends JPanel{
 		setMaximumSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.FRAME_HEIGHT+50));
 		setBackground(Color.GRAY);
 	}
+	
+	/**
+	 * Comment by Brock Sauvage
+	 * @Brief: This adds the "left bar" section of the day view, where events are
+	 * 		   displayed.
+	 */
 	private void addLeftBar(){
 		leftBar = new DayViewLeftPanel(date,dateString,allDayEvents,eventPicker);
 		add(leftBar, BorderLayout.LINE_START);
 	}
+	
+	/**
+	 * Comment by Brock Sauvage
+	 * @Brief: This is responsible for creating a scroll bar in the event viewer in the
+	 *         case that there are too many events to display all at once.
+	 */
 	private void addRightScrollBar(){
 		rightScrollPane = new JScrollPane();
 		rightScrollPane.setPreferredSize(new Dimension((int)((2.0/3.0)*CalendarApp.FRAME_WIDTH),(int)(CalendarApp.FRAME_HEIGHT)));
@@ -132,6 +161,15 @@ public class DayViewCollection extends JPanel{
 	         }
 	     });
 	}
+	
+	/**
+	 * Comment by Brock Sauvage
+	 * @Pre: Takes in a string, timeString
+	 * @Post: Takes timeString, and converts it into minutes
+	 * @Return: Returns the given time string in minutes, as an int.
+	 * @param timeString
+	 * @return
+	 */
 	public int getTimeStringAsMinutes(String timeString){
 		int timeInMinutes=0;
 		
@@ -153,6 +191,14 @@ public class DayViewCollection extends JPanel{
 		return timeInMinutes;
 		
 	}
+	
+	/**
+	 * @Pre: Takes in a link list of event objects
+	 * @Post: Removes all of the events from the linked list of a particular day
+	 * @Return: Returns a linked list of event objects
+	 * @param lle
+	 * @return
+	 */
 	public LinkedList<Event> removeAllDayEvents(LinkedList<Event> lle){
 		
 		Iterator<Event> it  = lle.iterator();

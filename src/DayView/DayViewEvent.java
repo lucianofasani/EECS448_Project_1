@@ -16,13 +16,20 @@ import Styles.FontManager;
 public class DayViewEvent extends JPanel implements IDayEvent{
 
 	/**
-	 * 
+	 * Comment by Brock Sauvage
+	 * This is the section where variable declaration happens.
 	 */
 	private static final long serialVersionUID = 2318788304336791454L;
 	private int day;
 	private int month;
 	private int year;
 	private final Event thisEvent;
+	
+	/**
+	 * Comment by Brock Sauvage
+	 * @Brief: Constructor for the class, is able to take in an event that can be viewed.
+	 * @param e
+	 */
 	public DayViewEvent(Event e){
 		this.setLayout(null);
 		thisEvent = e;
@@ -62,23 +69,44 @@ public class DayViewEvent extends JPanel implements IDayEvent{
 
 	}
 
-
+	/**
+	 * @Pre: None
+	 * @Post: Returns the member variable 'day'
+	 * @Return: an int, day.
+	 * @return
+	 */
 	public int getDay() {
 		// TODO Auto-generated method stub
 		return day;
 	}
 
-
+	/**
+	 * @Pre: None
+	 * @Post: Returns the member variable 'month'
+	 * @Return: Returns an int, month.
+	 * @return
+	 */
 	public int getMonth() {
 		// TODO Auto-generated method stub
 		return month;
 	}
 
+	/**
+	 * @Pre: None
+	 * @Post: Returns the member variable, 'year'
+	 * @Return: Returns an int, year.
+	 * @return
+	 */
 	public int getYear() {
 		// TODO Auto-generated method stub
 		return year;
 	}
 	
+	/**
+	 * @Pre: None
+	 * @Post: Returns the current event that the DayViewEvent object is holding.
+	 * @Return: Returns an event object, thisEvent.
+	 */
 	@Override
 	public Event getEvent(){
 		return thisEvent;

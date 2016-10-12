@@ -4,7 +4,12 @@ import javax.swing.JPanel;
 
 import Views.Views;
 
-
+/**
+ * Comment by Brock Sauvage
+ * Written by old team
+ * This class is responsible for creating an instance of the day view in the UI
+ *
+ */
 public class DayView extends JPanel implements Views {
 
 	/**

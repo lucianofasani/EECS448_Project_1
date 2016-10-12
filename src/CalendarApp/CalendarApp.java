@@ -22,7 +22,9 @@ import constants.ViewTypes;
 public class CalendarApp extends JFrame {
 	
 	/**
-	 * 
+	 * Comment by Brock Sauvage
+	 * @Brief: This is the section where member variables are declared. This specific
+	 * 		   section contains dimensions for the window.
 	 */
     private static final long serialVersionUID = 142874753849595415L;
 	
@@ -40,6 +42,7 @@ public class CalendarApp extends JFrame {
 	private Views activeView;
 	private ViewTypes activeViewType;
 	
+	//CalendarApp constructor
     private CalendarApp(){
 		initFrame();
 		
@@ -53,6 +56,7 @@ public class CalendarApp extends JFrame {
 		display();
 	}
 	
+    //Initializes the window
     private void initFrame(){
 		setMinimumSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
@@ -61,6 +65,7 @@ public class CalendarApp extends JFrame {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS) );
 	}
 	
+    //Displays the window
     private void display(){
 		pack();
 		invalidate();
