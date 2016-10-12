@@ -22,7 +22,9 @@ import Styles.FontManager;
 public class DayViewLeftPanel extends JPanel {
 
 	/**
-	 * 
+	 * Written by previous team, commented by Brock Sauvage.
+	 * This class essentially handles all of the information that is displayed on the 
+	 * left-hand panel you see in dayview, including all events, the date, etc.
 	 */
 	private static final long serialVersionUID = 8850861518801177742L;
 

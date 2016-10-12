@@ -15,7 +15,9 @@ import Listeners.EventPicker;
 
 public class DayViewGrid extends JPanel{
 	/**
-	 * 
+	 * Written by previous team, commented by Brock Sauvage
+	 * This class essentially creates a grid for all of the day view elements
+	 * to sit in.
 	 */
 	private static final long serialVersionUID = -6262892174085562405L;
 
