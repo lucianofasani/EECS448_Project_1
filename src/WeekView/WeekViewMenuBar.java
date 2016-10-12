@@ -37,7 +37,7 @@ public class WeekViewMenuBar extends JPanel {
 			j.setMinimumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setMaximumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setPreferredSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
-			j.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			j.setBorder(BorderFactory.createLineBorder(Color.gray.brighter()));
 			j.add(name);
 			add(j);
 		}

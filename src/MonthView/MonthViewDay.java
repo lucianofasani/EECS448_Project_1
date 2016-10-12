@@ -27,14 +27,14 @@ public class MonthViewDay extends JPanel implements IDay{
 		setMinimumSize(d);
 		setMaximumSize(d);
 		setPreferredSize(d);
-		setBorder(BorderFactory.createLineBorder(Color.black));
+		setBorder(BorderFactory.createLineBorder(Color.white));
 		JLabel label;
 		if(dayNum == null){
 			label = new JLabel("");
 		}else{
 			label = new JLabel(dayNum+"");
 		}
-		label.setForeground(Color.WHITE);
+		label.setForeground(Color.white);
 		add(label);
 	}
 	

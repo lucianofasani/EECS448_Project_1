@@ -31,7 +31,7 @@ public class WeekViewDay extends JPanel implements IDay{
 		setMinimumSize(d);
 		setMaximumSize(d);
 		setPreferredSize(d);
-		setBorder(BorderFactory.createLineBorder(Color.black));
+		setBorder(BorderFactory.createLineBorder(Color.white));
 		JLabel label;
 
 		if(monthNum == null && yearNum == null){

@@ -11,9 +11,9 @@ import java.awt.Font;
  *
  */
 public class FontManager {
-	private static final Font mStandardFont = new Font("Arial",Font.PLAIN,18);
-	private static final Font mSmallFont = new Font("Arial",Font.PLAIN,12);
-	private static final Font mBoldFont = new Font("Arial",Font.BOLD,18);
+	private static final Font mStandardFont = new Font("Helvetica",Font.PLAIN,18);
+	private static final Font mSmallFont = new Font("Helvetica",Font.PLAIN,12);
+	private static final Font mBoldFont = new Font("Helvetica",Font.BOLD,18);
 	
 	
 	public static Font getStandardFont(){

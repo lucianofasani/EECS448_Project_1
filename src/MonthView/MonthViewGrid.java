@@ -54,18 +54,18 @@ public class MonthViewGrid extends JPanel {
 		int plottedDays = 0;
 		for(int i =1 ;i<day; i++, plottedDays++){
 			temp = new MonthViewDay(null,new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
-			temp.setBackground(Color.white);
+			temp.setBackground(Color.black);
 			add(temp);
 		}
 		for(int i = 1; i<=maxDaysInMonth; i++, plottedDays++){
 			temp = new MonthViewDay((i),new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
-			temp.setBackground(Color.GRAY);
+			temp.setBackground(Color.white.darker());
 			temp.addMouseListener(mouseListener);
 			add(temp);
 		}
 		for( ;plottedDays<7*6; plottedDays++){
 			temp = new MonthViewDay(null,new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT));
-			temp.setBackground(Color.white);
+			temp.setBackground(Color.black);
 			add(temp);
 		}	
 	}

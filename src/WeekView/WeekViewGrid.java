@@ -64,7 +64,7 @@ public class WeekViewGrid extends JPanel {
 		int plottedCount = 0;
 		while(start<=0){
 			temp = new WeekViewDay(start, CachedCalendar.getInstance().Month-1,null,new Dimension(50,100));
-			temp.setBackground(Color.GRAY);
+			temp.setBackground(Color.GRAY.brighter());
 			temp.addMouseListener(mouseListener);
 			add(temp);
 			start++;
@@ -73,13 +73,13 @@ public class WeekViewGrid extends JPanel {
 		
 		for(; plottedCount<7 && start <= mycal.getActualMaximum(Calendar.DAY_OF_MONTH); start++,plottedCount++){
 			temp = new WeekViewDay(start,null,null,new Dimension(50,100));
-			temp.setBackground(Color.GRAY);
+			temp.setBackground(Color.GRAY.brighter());
 			temp.addMouseListener(mouseListener);
 			add(temp);
 		}
 		for(int i = 1;plottedCount<7;plottedCount++,i++){
 			temp = new WeekViewDay(i,CachedCalendar.getInstance().Month+1,null,new Dimension(50,100));
-			temp.setBackground(Color.GRAY);
+			temp.setBackground(Color.GRAY.brighter());
 			temp.addMouseListener(mouseListener);
 			add(temp);
 		}

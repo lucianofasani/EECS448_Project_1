@@ -26,7 +26,7 @@ public class MonthViewMenuBar extends JPanel {
 		setMaximumSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 		setPreferredSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 		setLayout(new GridLayout(1,7));
-		setBackground(Color.ORANGE);
+		setBackground(Color.white);
 		
 		/*
 		 * Add day of week Tiles
@@ -37,7 +37,7 @@ public class MonthViewMenuBar extends JPanel {
 			j.setMinimumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setMaximumSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 			j.setPreferredSize(new Dimension(CalendarApp.DAY_OF_MONTH_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
-			j.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			j.setBorder(BorderFactory.createLineBorder(Color.gray.brighter()));
 			j.add(name);
 			add(j);
 		}

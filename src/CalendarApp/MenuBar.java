@@ -55,7 +55,7 @@ public class MenuBar extends JPanel{
 		setMinimumSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 		setMaximumSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
 		setPreferredSize(new Dimension(CalendarApp.FRAME_WIDTH,CalendarApp.DAY_OF_MONTH_HEIGHT/2));
-		setBackground(Color.BLUE);
+		setBackground(Color.cyan.darker());
 		
 		initFormatButtons();
 		initMonthBox();
